@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="list">
+        <li class="item">nodeJs <a href="javascript:" class="edit">编辑</a></li>
+        <li class="item">php <a href="javascript:" class="edit">编辑</a></li>
+        <li class="item">react <a href="javascript:" class="edit">编辑</a></li>
+    </ul>
+
+    <script>
+        document.getElementsByClassName('list')[0].addEventListener('click', function(e) {
+            const target = e.target || e.srcElement
+            if (target.classList.contains('item')) {
+                console.log('点击列表内的某一项');
+            } else if (target.classList.contains('edit')) {
+                console.log('点击了编辑');
+            }
+        })
+    </script>
+</body>
+</html>

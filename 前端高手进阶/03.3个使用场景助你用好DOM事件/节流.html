@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function throttle(fn, wait) {
+            let timeout = null
+            let args
+            let lastCallTime
+            if (timeout) {
+                clearTimeout(timeout)
+                timeout = null
+            }
+            function throttled(...arg) {
+                args = arg
+                lastCallTime = lastCallTime || new Date()
+                return new Promise(async (resolve, reject) => {
+                    const now = new Date()
+                    if (now - lastCallTime >= wait) {
+                        const result = await fn.apply(this, args)
+                        lastCallTime = now
+                        resolve(result)
+                    } else {
+                        timeout = setTimeout(async () => {
+                            const result = await fn.apply(this, args)
+                            resolve(result)
+                        }, now - lastCallTime - wait)
+                    }
+                })
+            }
+            return throttled
+        }
+    </script>
+</body>
+</html>

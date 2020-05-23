@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="searchInput">
+    <script>
+        function debounce(fn, wait) {
+            console.log('111');
+            let timeout = null
+            let args
+            function debounced(...arg) {
+                console.log('触发改变');
+                args = arg
+                if (timeout) {
+                    clearTimeout(timeout)
+                    timeout = null
+                }
+                return new Promise((resolve, reject) => {
+                    timeout = setTimeout(async () => {
+                        const result = await fn.apply(this, args)
+                        resolve(result)
+                    }, wait)
+                })
+                
+            }
+            debounced.cancel = () => {
+                if (timeout) {
+                    clearTimeout(timeout)
+                    timeout = null
+                }
+            }
+            debounced.flush = function () {
+                this.cancel()
+                return fn.apply(this, args)
+            }
+            return debounced
+        }
+
+        function getData() {
+            // console.log('请求成功')
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('请求成功')
+                    resolve(1)
+                })
+            })
+        }
+        
+        // 不能监听 change 事件，change 事件只在失去焦点时触发
+        const eventFn = debounce(getData, 2000)
+
+        // 10s后自动调用
+        setTimeout(() => {
+            eventFn.flush()
+        }, 10000)
+
+        document.getElementById('searchInput').addEventListener('input', eventFn)
+    </script>
+</body>
+</html>
