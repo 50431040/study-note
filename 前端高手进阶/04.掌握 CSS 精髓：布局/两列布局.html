@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .wrap {
+            display: flex;
+            flex-direction: row-reverse;
+            flex-wrap: wrap;
+            height: 100px;
+        }
+        .aside {
+            width: 200px;
+            background-color: pink;
+            height: 100%;
+        }
+        .main {
+            flex: 1;
+            background-color: green;
+            height: 100%;
+        }
+        @media screen and (max-width: 1000px) {
+            .wrap {
+                flex-direction: row;
+            }
+            .main {
+                flex: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="main"></div>
+        <div class="aside"></div>
+    </div>
+</body>
+</html>
