@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 变量提升：var定义的变量会声明提升到它所在作用域的顶端
+         */
+
+        console.log(name); // jlq
+        var name = 'jlq'
+
+        console.log(v); // undefined
+        var v = '123'
+
+        
+        /**
+         * 函数提升：1. 函数声明式 2. 函数字面量式
+         * 函数声明式是将 整个代码块 提升到作用域顶端
+         * 在函数内部的var变量仍然会进行变量提升
+         */
+
+
+        console.log(getName); // f getName () {}
+        function getName() {
+            console.log(name); // undefined
+            var name = 'zz'
+        }
+        getName()
+
+        console.log(getName2); // undefined
+        var getName2 = function() {
+            console.log('1');
+        }
+
+
+    </script>
+</body>
+</html>

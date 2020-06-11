@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * let，const定义的变量如果在声明前就使用会抛出异常
+         * 在函数参数中依然遵循“先声明后使用”原则
+         */
+
+        //  console.log(a) // Uncaught ReferenceError: Cannot access 'a' before initialization
+         let a = 1
+
+         function run(a = 1, b = a) {
+             console.log(a, b); // 1 1
+         }
+
+        //  function run(b = a, a = 1) {} // Uncaught ReferenceError: Cannot access 'a' before initialization
+
+         run()
+    </script>
+</body>
+</html>
