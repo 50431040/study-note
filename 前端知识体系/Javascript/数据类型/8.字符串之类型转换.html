@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 字符串转数字：转换前确定当前字符串一定为数字，可以用 * 1 或 +num 或 Number()，不确定则使用parseInt() 或 parseFloat()
+         * 数字转字符串： + '' | String() | toString()
+         * 字符串转数组：split()
+         * 数组转字符串：join() | toString
+         * 字符串字面量隐式转化String对象，可使用属于字符串的所有方法
+        */
+       const str = '123a'
+       console.log(+str); // NaN
+       console.log(parseInt(str)); // 123
+
+       console.log(parseInt('asd')); // NaN
+
+       const num = 123
+       const re = num + ''
+       console.log(typeof re); // string
+
+       const arr = str.split('')
+       console.log(arr); // ['1', '2', '3', 'a']
+
+       const str2 = arr.join(',')
+       console.log(str2); // 1,2,3,a
+
+       const str3 = new String('456')
+       console.log(typeof str3); // object
+       console.log(str3.slice(1)); // 56 隐式拆箱
+    </script>
+</body>
+</html>

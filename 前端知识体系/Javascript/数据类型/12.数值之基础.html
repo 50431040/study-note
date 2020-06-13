@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 可用new Number()定义，valueOf()取值，但不推荐
+         * Number.isInteger()
+         * toFixed()
+        */
+        const n = new Number(123)
+        console.log(n.valueOf());
+
+        const num = 12, num2 = 12.13445
+        console.log(Number.isInteger(num)); // true
+        console.log(Number.isInteger(num2)); // false
+
+        console.log(num2.toFixed(2)); // 12.13
+    </script>
+</body>
+</html>

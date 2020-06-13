@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 模板字符串中不仅可以为变量，还可以为表达式或函数，还支持嵌套
+         */
+
+        const name = 'Mike'
+        const age = 12
+        const str = `My name is ${name}, and I am ${age} years old`
+        console.log(str);
+
+        const fruits = ['apple', 'orange', 'banana']
+        const str2 = `
+        <ul>
+            ${fruits.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+        `
+        document.body.innerHTML = str2
+    </script>
+</body>
+</html>

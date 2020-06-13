@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function formatDate(date, format="YYYY-MM-DD HH:mm:ss") {
+            const d = typeof date === 'object' ? date : new Date(date)
+            const obj = {
+                YYYY: d.getFullYear(),
+                MM: d.getMonth(),
+                DD: d.getDate(),
+                HH: d.getHours(),
+                mm: d.getMinutes(),
+                ss: d.getSeconds()
+            }
+            for(let key in obj) {
+                if (String(obj[key]).length === 1) { // 得到是数值类型，需要转为字符串
+                    obj[key] = '0' + obj[key]
+                }
+                format = format.replace(key, obj[key])
+            }
+            return format
+        }
+
+        console.log(formatDate(new Date()));
+    </script>
+</body>
+</html>

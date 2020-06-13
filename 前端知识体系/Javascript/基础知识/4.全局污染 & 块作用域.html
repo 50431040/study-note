@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 防止全局污染：
+         * 1. 立即执行函数（IIFE）
+         * 2. 全局变量命名空间
+         * 3. 块作用域
+         */
+        // 'use strict'; // 不允许使用未声明的变量
+        
+        a = 'asd'; // a is not defined
+
+        // 前一句必须加分号
+        (function() {
+            var a = '123'
+        })()
+
+        console.log(a);
+
+
+        const glob = {
+            a: '123'
+        }
+
+        {
+            let a = '566'
+        }
+        console.log(a);
+    </script>
+</body>
+</html>

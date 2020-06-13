@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * indexOf | lastIndexOf | startsWith | endsWith | includes | charAt | charCodeAt
+        */
+
+        const str = 'Lebron James'
+        console.log(str.length); // 12
+        console.log(str.charAt(2)); // b
+        console.log(str.charCodeAt(2)); // 98
+        console.log(str[2]); // b
+        console.log(str.indexOf('e')); // 1
+        console.log(str.indexOf('e', 3)); // 10
+        console.log(str.lastIndexOf('e')); // 10
+        console.log(str.lastIndexOf('e', 3)); // 1 
+        console.log(str.startsWith('Lebron'));  // true
+        console.log(str.startsWith('ron', 3)); // true
+        console.log(str.endsWith('James')); // true
+
+
+        console.log(str.includes('ron')); // true
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * Date()
+         * new Date()
+         * Date.now()
+         * 
+         */
+        const d1 = Date()
+        console.log(typeof d1, d1); // string
+
+        const d2 = new Date()
+        console.log(typeof d2, d2); // object
+
+        console.log(Date.now());
+
+        console.log(new Date('2020-01-03 15:40:10'));
+        console.log(new Date(2020, 3, 5, 10, 30, 12));
+    </script>
+</body>
+</html>

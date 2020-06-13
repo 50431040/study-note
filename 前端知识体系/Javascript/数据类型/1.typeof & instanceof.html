@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * typeof判断基本类型，instanceof判断引用类型
+         * 未声明的变量只能用typeof方法
+         * instanceof原理
+         */
+        // console.log(a); // Uncaught ReferenceError: a is not defined
+        console.log(typeof a); // undefined
+
+        const num = 123
+        const str = '123'
+        const n = null
+        const u = undefined
+        const b = true
+        const arr = [1, 2]
+        const obj = {
+            name: 'asd'
+        }
+        function fn() {}
+        console.log(typeof num); // number
+        console.log(typeof str); // string
+        console.log(typeof n); // object
+        console.log(typeof u); // undefined
+        console.log(typeof b); // boolean
+        console.log(typeof arr); // object
+        console.log(typeof obj); // object
+        console.log(typeof fn); // function
+
+        console.log(num instanceof Object); // false
+        console.log(arr instanceof Array); // true
+        console.log(arr instanceof Object); // true
+        console.log(obj instanceof Object); // true
+
+        console.log(arr.__proto__ === Array.prototype); // true
+    </script>
+</body>
+</html>

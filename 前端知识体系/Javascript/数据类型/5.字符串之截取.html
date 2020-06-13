@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * slice，substring，substr
+         * 三者都可以正向截取，第一个参数都是开始项索引，slice 和 substring的第二个参数表示结束索引，substr的第二个参数表示截取的个数
+         * slice 和 substr 都可以进行反向截取（第一个参数指定负数），substring若指定起始索引或结束索引为负数都当做0计算
+         * slice适用普遍，用于正反向截取。substr用于正反向截取指定个数。substring仅用于正向截取
+         */
+
+        const str = 'qwertyuiop'
+
+        console.log(str.slice(1));
+        console.log(str.substring(1));
+        console.log(str.substr(1));
+
+        console.log(str.slice(1, 4));
+        console.log(str.substring(1, 4));
+        console.log(str.substr(1, 4));
+
+        console.log(str.slice(-1, 4));
+        console.log(str.substring(-1, 4));
+        console.log(str.substr(-1, 4));
+
+        console.log(str.slice(-4, -1));
+        console.log(str.substr(1, -5));
+    </script>
+</body>
+</html>

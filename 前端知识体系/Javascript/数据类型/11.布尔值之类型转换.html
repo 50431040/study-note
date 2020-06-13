@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 隐式转换为false的情况：'' | 0 | false | null | undefined 
+         * 可使用Boolean()或!!来进行显式转换
+        */
+        const num = 123, zeroNum = 0
+        const str = '123', emptyStr = '', emptyStr2 = ' '
+        const undefinedObj = undefined, nullObj = null
+
+        if (!zeroNum && !emptyStr && !undefinedObj && !nullObj) {
+            console.log('空字符串，数字0，undefined，null都为false');
+        }
+    </script>
+</body>
+</html>

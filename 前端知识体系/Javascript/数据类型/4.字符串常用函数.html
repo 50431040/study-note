@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="username">
+        姓名：
+        <input id="username" name="username" />
+        <span id="err"></span>
+    </label>
+    <div id="template"></div>
+    <script>
+        /**
+         * 字符串常用函数
+         * trim，toLowerCase，toUpperCase 都不会改变原字符串
+         */
+        const str = '  Jack  '
+        console.log(str.length);
+        console.log(str.toUpperCase());
+        console.log(str.toLowerCase());
+        console.log(str.trimStart().length);
+        console.log(str.trimEnd().length);
+        console.log(str.trim().length);
+        console.log(str);
+
+
+        const username = document.getElementById('username')
+        const err = document.getElementById('err')
+        username.addEventListener('keyup', function() {
+            const value = this.value.trim()
+            const minLength = 5
+
+            if (value.length < minLength) {
+                err.style.display = 'block'
+                err.innerHTML = `用户名不得少于${minLength}位`
+            } else {
+                err.style.display = 'none'
+                err.innerHTML = ''
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 不推荐使用new String().toString()方式创建字符串
+         * 字符串中存在特殊符号 ' " \等，使用\来转义
+         * 制表符 \t 换行符 \n
+         */
+        const str = new String('123')
+        console.log(str.toString());
+
+        const str2 = '\'\\\",'
+        console.log(str2);
+
+        const str3 = 'My name \t is \n lll'
+        console.log(str3);
+
+        const text = '1&nbsp;&nbsp;&nbsp;&nbsp;23'
+        document.write(text)
+    </script>
+</body>
+</html>

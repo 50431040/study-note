@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 加减乘除余：+ | - | * | / | %
+         * 大整数越界问题
+         * 浮点数误差问题
+         */
+        console.log(9999999999999999 == 10000000000000001) // true
+        console.log(9007199254740992 + 1 == 9007199254740992) // true
+        console.log(Number.MAX_VALUE); // 1.7976931348623157e+308
+        console.log(Number.MIN_VALUE); // 5e-324
+        console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+        console.log(Number.MIN_SAFE_INTEGER); // -9007199254740991
+
+        console.log(0.1 + 0.2 === 0.3); // false
+        console.log(0.1 + 0.2); // 0.30000000000000004
+        console.log(1.335.toFixed(2)); // 1.33
+
+        function SafeFloat() {
+        // 转为整数 返回 处理后的整数和倍数
+            this.toInteger = function(num) {
+                const obj = {
+                    num,
+                    times: 1
+                }
+                if (Number.isInteger(num)) {
+                    return obj
+                }
+                const str = num + ''
+                const dotPos = str.indexOf('.')
+                const len = str.slice(dotPos + 1).length
+                obj.times = Math.pow(10, len)
+                obj.num = num * Math.pow(10, len)
+                return obj
+            }
+
+            this.operation = function(a, b, op) {
+                const o1 = this.toInteger(a)
+                const o2 = this.toInteger(b)
+                const num1 = o1.num
+                const num2 = o2.num
+                const t1 = o1.times
+                const t2 = o2.times
+                const max = Math.max(t1, t2)
+                let result
+                switch(op) {
+                    case 'add':
+                        if (t1 === t2) {
+                            result = num1 + num2
+                        } else if (t1 > t2) {
+                            result = num1 + num2 * (t1 / t2)
+                        } else {
+                            result = num2 + num1 * (t2 / t1)
+                        }
+                        return result / max
+                        break
+                    case 'sub':
+                        if (t1 === t2) {
+                            result = num1 + num2
+                        } else if (t1 > t2) {
+                            result = num1 - num2 * (t1 / t2)
+                        } else {
+                            result = num1 * (t2 / t1) - num2
+                        }
+                        return result / max
+                        break
+                    case 'mul':
+                        result = (num1 * num2) / (t1 * t2)
+                        return result
+                        break
+                    case 'div':
+                        result = (num1 / num2) * (t1 / t2)
+                        return result / max
+                        break
+                }
+            }
+        }
+        SafeFloat.prototype.add = function(a, b) {
+            return this.operation(a, b, 'add')
+        }
+        SafeFloat.prototype.sub = function(a, b) {
+            return this.operation(a, b, 'sub')
+        }
+        SafeFloat.prototype.mul = function(a, b) {
+            return this.operation(a, b, 'mul')
+        }
+        SafeFloat.prototype.div = function(a, b) {
+            return this.operation(a, b, 'div')
+        }
+
+        const s = new SafeFloat()
+        console.log(s.add(0.1, 0.2) === 0.3);
+        console.log(s.mul(0.1, 0.2) === 0.02);
+    </script>
+</body>
+</html>

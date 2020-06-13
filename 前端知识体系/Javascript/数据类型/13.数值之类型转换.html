@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 判断一个值是不是非数值：Number.isNaN | Object.is(num, NaN)
+         * 任何值和NaN都不相等，包括它自身
+         * 使用Number()来显式转换其他类型
+         * 布尔值：true => 1  false => 0
+         * 字符串：还可以使用parseInt() | parseFloat()
+         * 数组：空数组 => 0，单值数组 => 该单值（必须为数值或字符串），多值 => NaN
+         * 对象：空对象和普通对象 => NaN，实现了valueOf的对象 => Number(valueOf返回值)
+        */
+       const str = '123asf'
+
+       console.log(Number.isNaN(Number(str))); // true
+       console.log(Object.is(Number(str), NaN)); // true
+       
+       console.log(NaN === NaN); // false
+
+       const b = true
+       console.log(Number(b)); // 1
+
+       const s = '123abc'
+       console.log(Number(s)); // NaN
+       console.log(parseInt(s)); // 123
+
+       const obj = {}
+       console.log(Number(obj)); // NaN
+       const obj2 = {
+           valueOf() {
+               return 5
+           }
+       }
+       console.log(Number(obj2)); // 5
+       const obj3 = {
+           valueOf() {
+               return true
+           }
+       }
+       console.log(Number(obj3)); // 1
+
+       const arr = []
+       console.log(Number(arr)); // 0
+       const arr1 = ['3']
+       console.log(Number(arr1)); // 3
+       const arr2 = [obj2]
+       console.log(Number(arr2)); // NaN
+       const arr3 = [1, 2]
+       console.log(Number(arr3)); // NaN
+    </script>
+</body>
+</html>

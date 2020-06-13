@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 日期 => 时间戳：+ ,Number(),valueOf(),getTime()
+         * 时间戳 => 日期： new Date()
+         */
+        const d = new Date()
+        console.log(+d);
+        console.log(Number(d));
+        console.log(d.valueOf());
+        console.log(d.getTime());
+
+        const timestamp = d.getTime()
+        console.log(new Date(timestamp));
+    </script>
+</body>
+</html>

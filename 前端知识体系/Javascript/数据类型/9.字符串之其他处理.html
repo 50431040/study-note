@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * repeat
+        */
+        const str = 'Lebron James '
+        console.log(str.repeat(3));
+
+        // 电话号码模糊处理
+        function mask(phone, len) {
+            return `${String(phone).slice(0, len * -1)}${'*'.repeat(len)}`
+        }
+        console.log(mask(15656871232, 2));
+        console.log(mask(15656871232, 4));
+    </script>
+</body>
+</html>

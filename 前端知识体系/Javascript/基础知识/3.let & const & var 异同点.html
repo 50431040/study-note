@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 相同点：
+         * 三者都遵循“先声明后使用”原则，函数内部优先查找内部是否声明，未声明可访问外部变量
+         */
+        function getName() {
+            console.log(n);
+        }
+        getName() // undefined
+        var n = '123'
+
+        getName() // 123
+
+        /**
+         * 不同点：
+         * 1. var 和 let 可以单独声明，后面再赋值；const 必须在声明时同时赋值，且之后不允许改变
+         * 2. 使用 var 定义的变量不存在块作用域的概念，而let 和 const 存在
+         * 3. 使用 var 定义的变量可重复声明，let 和 const 不可
+         */
+        var a
+        let b
+        // const c // Uncaught SyntaxError: Missing initializer in const declaration
+
+        {
+            var d = '456'
+            // let d = '789'
+        }
+        console.log(d);
+
+        var e = '1234'
+        var e = 'acs'
+        let f = '1334'
+        // let f = '123' // Uncaught SyntaxError: Identifier 'f' has already been declared
+
+        /**
+         * const不可改变的是其内存地址，对于引用类型而言，可以改变其内部成员
+         * 优先使用const来定义，若确实需要改变，则使用let
+         */
+        const g = '123'
+        // g = '12345' // Uncaught TypeError: Assignment to constant variable.
+
+        const h = {
+            name: 'asd'
+        }
+        h.name = '1234' // 允许修改
+        // h = { name: '890' } // Uncaught TypeError: Assignment to constant variable.
+    </script>
+</body>
+</html>
