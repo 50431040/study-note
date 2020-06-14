@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 可将数组中的元素依次赋值给左边声明的变量
+         * 可将字符串进行解构赋值，即转化为字符数组
+         * 当左侧声明的变量小于右侧数组的长度，则最后一个变量接收所有剩余的成员(仍然是数组)
+         * 当左侧声明的变量大于右侧数组的长度，则左侧变量不够分配时后续变量为undefined,但可设置默认值
+         * ...语法在表达式左侧则解构，放在表达式右侧则展开
+         * 解构也可应用于函数参数声明
+         */
+        const [num1, num2] = [123, 456]
+        console.log(num1, num2); // 123 456s
+
+        const [...arr] = 'Lebron James'
+        console.log(arr);
+
+        const [w1, w2, ...rest] = [...arr]
+        console.log(w1, w2, rest); // L e ["b", "r", "o", "n", " ", "J", "a", "m", "e", "s"]
+
+        const [n1, n2, n3] = [1, 2]
+        console.log(n1, n2, n3); // 1 2 undefined
+
+        function getMsg([name, age, address]) {
+            console.log(name, age, address);
+        }
+        getMsg(['Jack', 12, 'ChengDu']) // Jack 12 ChengDu
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * sort
+         */
+
+        const arr = [5, 2, 1, 8, 5, 22, 14, 3]
+        arr.sort(function(item1, item2) {
+            return item1 - item2
+        })
+        console.log(arr); // [1, 2, 3, 5, 5, 8, 14, 22]
+
+        // 自定义sort
+        function sort(arr, fn) {
+            for(let i in arr) {
+                for(let j in arr) {
+                    if (fn(arr[i], arr[j]) < 0) {
+                        let temp = arr[i]
+                        arr[i] = arr[j]
+                        arr[j] = temp
+                    }
+                }
+            }
+        }
+        const arr1 = [5, 2, 1, 8, 5, 22, 14, 3]
+        sort(arr1, (item1, item2) => item1 - item2)
+        console.log(arr1); // [1, 2, 3, 5, 5, 8, 14, 22]
+    </script>
+</body>
+</html>

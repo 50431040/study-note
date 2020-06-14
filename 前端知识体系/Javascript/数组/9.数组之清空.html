@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 赋空值
+         * 置length为0
+         * splice(0)
+         * 循环pop/shift
+         * 赋空值和改变length的区别：一个改变地址值，一个改变存储在堆中的值
+         */
+        const arr = [1, 2, 3, 4, 5]
+        let arr2 = arr
+        arr2 = []
+        console.log(arr); // [1, 2, 3, 4, 5]
+
+        const arr3 = arr
+        arr3.length = 0
+        console.log(arr, arr3); // [] []
+
+        const arr4 = [1, 2, 3, 4, 5]
+        arr4.splice(0)
+        console.log(arr4); // []
+    </script>
+</body>
+</html>

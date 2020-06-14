@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 可以使用new Array()或[]创建数组
+         * 跨索引赋值时，中间的数据项会自动填充empty
+         * new Array()创建数组时，构造函数传入多个参数时将正常构建数组，只有一个参数时，将创建指定长度数据项为empty的数组
+         * 当传入一个参数时，希望只产生一个指定值的数组，使用Array.of()或[]
+         * empty 为空单元， 不等于 undefined
+         * 创建指定长度为3数据项为undefined的数组：Array.apply(null, { length: 3 })
+         */
+        const arr = [1, 3]
+        arr[5] = 9
+        console.log(arr); // [1, 3, empty × 3, 9]
+        console.log(arr.indexOf(undefined)); // -1
+        arr[2] = undefined
+        console.log(arr.indexOf(undefined)); // 2
+
+        const arr1 = Array.apply(null, { length: 3 })
+        console.log(arr1);
+
+        const arr2 = Array.of(6)
+        console.log(arr2[0]); // 6
+    </script>
+</body>
+</html>

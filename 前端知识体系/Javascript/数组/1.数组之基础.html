@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 可使用new Array()定义，不推荐
+         * typeof结果为object，使用instanceof检测是否为数组类型（Array）
+         * for，for ... in ，for of 都可以用来遍历数组，length获取数组的长度
+         */
+        const arr = new Array(5)
+        console.log(arr, arr[1]); // [empty × 5] undefined
+        const arr2 = new Array(1,2,3) // [1, 2, 3]
+        console.log(arr2);
+    </script>
+</body>
+</html>

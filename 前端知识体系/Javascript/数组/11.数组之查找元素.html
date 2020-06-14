@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * indexOf: number/-1
+         * lastIndexOf: number/-1
+         * find: 元素/undefined
+         * findIndex: number/-1
+         * includes: true/false
+         */
+
+        //  自定义includes
+        function includes(arr, val) {
+            for(const item of arr) {
+                if (item === val) return true
+            }
+            return false
+        }
+        console.log(includes([1, 2, 3], 2)); // true
+        console.log(includes([1, 2, 3], 4)); // false
+
+        // 自定义find
+        function find(arr, fn) {
+            for(const item of arr) {
+                if (fn(item)) return item
+            }
+            return 
+        }
+        console.log(find([1, 2, 3], (item) => item === 2)); // 2
+        console.log(find([1, 2, 3], (item) => item === 4)); // 4
+    </script>
+</body>
+</html>

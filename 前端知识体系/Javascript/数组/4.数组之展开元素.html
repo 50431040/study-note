@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <script>
+        /**
+         * 合并多个数组
+         * 函数声明可变参数
+         * DOM元素集合转为数组
+         */
+
+        const arr1 = [1, 2]
+        const arr2 = [3, 4]
+        const arr3 = [...arr1, ...arr2]
+        console.log(arr3); // [1, 2, 3, 4]
+
+        const sum = (...args) => {
+            return args.reduce((pre, cur) => pre += cur, 0)
+        }
+        console.log(sum(...arr3));
+
+        const lis = document.querySelectorAll('li');
+
+        // 上面一句必须加上分号
+        [...lis].map(li => {
+            li.addEventListener('click', function() {
+                this.style.background = 'red'
+            })
+        })
+    </script>
+</body>
+</html>

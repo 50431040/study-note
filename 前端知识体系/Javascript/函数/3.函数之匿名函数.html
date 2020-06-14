@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * var = function() {}定义匿名函数
+         * 函数表达式与匿名函数定义方式的区别：前者存在函数声明提升
+         */
+        getName() // James
+        function getName() {
+            console.log('James');
+        }
+        var getName = function() {
+            console.log('Irving');
+        }
+        getName() // Irving
+    </script>
+</body>
+</html>

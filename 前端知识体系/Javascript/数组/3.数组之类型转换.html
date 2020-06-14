@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 检测是否为数组：Array.isArray()
+         * 转为字符串： String() | toString() | join()
+         * 字符串转数组： Array.from() | split()
+         * Array.from()可转换具备length属性的元素，常用于DOM元素集合的转换, 第二个参数可依次操作每个元素
+         */
+        const arr = [1, 2]
+        console.log(Array.isArray(arr)); // true
+        console.log(String(arr)); // '1,2'
+        console.log(arr.toString()); // '1,2'
+
+        const str = 'Lebron James'
+        console.log(Array.from(str));
+
+
+        Array.from(arr, function(item, index) {
+            const dom = document.createElement('div')
+            dom.innerHTML = item
+            document.body.append(dom)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 与window上的已有属性冲突，造成全局污染
+         */
+        var screen = function() {}
+        console.log(window.screen);
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 可以使用new Function来定义，但不推荐
+         * function() {} 
+         * var = function()
+         */
+        const getName = new Function('name', 'console.log(name)')
+        getName('asf') // asf
+
+        const user = {
+            name: '',
+            getName() {
+                return this.name
+            },
+            setName(name) {
+                this.name = name
+            }
+        }
+        user.setName('qwe')
+        console.log(user.getName()) // qwe
+    </script>
+</body>
+</html>

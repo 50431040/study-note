@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 指定元素重复次数
+        function getRepeatCount(arr, num) {
+            return arr.reduce((pre, cur) => {
+                if (cur === num) pre++
+                return pre
+            }, 0)
+        }
+        console.log(getRepeatCount([1, 2, 3, 1, 1, 3, 4, 1], 1));
+
+        // 数组中元素的最大值
+        function getMax(arr) {
+            return arr.reduce((pre, cur) => {
+                if (cur > pre) pre = cur
+                return pre
+            }, 0)
+        }
+        console.log(getMax([1, 5, 2, 2, 45, 23, 21, 9, 67]));
+    </script>
+</body>
+</html>

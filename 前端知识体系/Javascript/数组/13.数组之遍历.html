@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <script>
+        /**
+         * forEach | for of | for in | for
+         * dom元素集合可使用forEach遍历
+         * 无法通过break跳出forEach循环，可以使用try catch
+         * 无法通过continue跳出forEach的本次循环，可以使用return false
+         */
+        const domArr = document.querySelectorAll('div')
+        domArr.forEach(dom => {
+            console.log(dom);
+        })
+
+        const arr = [1, 2, 3, -1, 5]
+        try {
+            arr.forEach(item => {
+                if (item < 0) throw new Error('')
+                console.log(item);
+            })
+        } catch (err) {
+
+        }
+
+        arr.forEach(item => {
+            if (item < 0) return false
+            console.log(item);
+        })
+    </script>
+</body>
+</html>

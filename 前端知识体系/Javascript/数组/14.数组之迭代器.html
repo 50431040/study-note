@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * keys()
+         * values()
+         * entries()
+         */
+        const arr = [12, 14, 123, 15]
+        const keyIterator = arr.keys()
+        const valueIterator = arr.values()
+
+        for(let key of keyIterator) {
+            console.log(key);
+        }
+        for(value of valueIterator) {
+            console.log(value);
+        }
+
+        const iterator = arr.entries()
+        for([key, value] of iterator) {
+            console.log(key, value);
+        }
+
+        const iterator2 = arr.entries()
+        while(({done, value} = iterator2.next()) && !done) {
+            const [key, val] = value
+            console.log(key, val, done);
+        }
+    </script>
+</body>
+</html>
