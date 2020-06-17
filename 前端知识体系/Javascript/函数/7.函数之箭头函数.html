@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 简化代码：() => {}
+         * 只有一个参数可省略()
+         * 当箭头函数只有一句代码时可以省略{}，return也可以省略
+         * 箭头函数不是万能的，如无法解决递归、构造函数、事件处理
+         */
+        const sum = (...args) => args.reduce((pre, cur) => pre + cur, 0)
+        console.log(sum(1, 2, 3, 4, 5)); // 15
+    </script>
+</body>
+</html>

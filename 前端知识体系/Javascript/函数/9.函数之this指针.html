@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            height: 100%
+        }
+    </style>
+</head>
+<body>
+    <script>
+        /*
+         * 一般定义在类或者对象内部的函数，称为方法。
+         * 在方法内部可以用this获取到对象中的所有成员
+         * 在方法内部再定义函数，函数内部的this指向的是window，不是对象本身
+         * 如果在方法内部的函数中想要获取对象本身，可使用箭头函数或_this
+         * 在对象中添加DOM事件，使用function则指向DOM元素，使用箭头函数则指向对象本身。
+         */
+        const user = {
+            name: 'Lebron',
+            getName() {
+                console.log(this); // {name: "Lebron", getName: ƒ}
+                const _this = this
+                function temp() {
+                    console.log(this);
+                    console.log(_this); // {name: "Lebron", getName: ƒ}
+                }
+                temp() // Window
+                const u = {
+                    getName() {
+                        console.log(this);
+                    }
+                }
+                u.getName()
+                return this.name
+            }
+        }
+        console.log(user.getName()); // Lebron
+
+        const blog = {
+            author: 'Lebron',
+            posts: [
+                {
+                    title: 'Node'
+                },
+                {
+                    title: 'Vue'
+                }
+            ],
+            show() {
+                // return this.posts.map(function(item) {
+                //     console.log(this);  // Window
+                //     return `${this.author} - ${item.title}`
+                // })
+                return this.posts.map(item => {
+                    console.log(this);
+                    return `${this.author} - ${item.title}`
+                })
+            }
+        }
+        console.log(blog.show());
+
+        const d = {
+            add() {
+                const body = document.querySelector('body')
+                const _this = this
+                body.addEventListener('click', function() {
+                    console.log(this); // DOM本身
+                    console.log(_this); // 对象本身
+                })
+                body.addEventListener('click', (e) => {
+                    console.log(e.target); // DOM
+                    console.log(this); // 对象
+                })
+            }
+        }
+        d.add()
+    </script>
+</body>
+</html>

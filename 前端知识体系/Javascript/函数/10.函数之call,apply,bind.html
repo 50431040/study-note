@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        /*
+         * 使用call和apply，函数会立即执行，bind会返回一个新的函数，这个函数的this指向指定的对象
+         * call可传入多个参数，apply是以数组的方式传参
+         * bind可以在使用bind时传参，也可以在调用新的函数时传参
+         * call,apply 可以用来实现继承
+         */
+
+        function getMsg(sex, age) {
+            console.log(this.name, sex, age);
+        }
+        const user = {
+            name: 'Irving'
+        }
+        getMsg.call(user, 'male', 12)
+        getMsg.apply(user, ['male', 15])
+
+        const fn = getMsg.bind(user, 'female')
+        fn() // Irving female undefined
+        fn(20) // Irving female 20
+
+        const fn2 = getMsg.bind(user)
+        fn2('male', 14) // Irving male 14
+
+        console.log(Math.max.apply(null, [1, 3, 5])); // 5
+
+        document.querySelector('body').addEventListener('click', function(e) {
+            console.log(this); // {name: "Irving"}
+            console.log(e.target); // DOM
+        }.bind(user))
+
+
+        // 背景随机颜色
+        function SetBackColor(el) {
+            this.el = el
+            this.colors = ['#9b59b6', '#1abc9c', '#34495e', '#e74c3c', '#f39c12']
+            this.run = function() {
+                setInterval(function() {
+                    const index = Math.floor(Math.random() * this.colors.length)
+                    this.el.style.backgroundColor = this.colors[index]
+                }.bind(this), 2000)
+            }
+        }
+        const s = new SetBackColor(document.querySelector('body'))
+        s.run()
+
+        function Factory(name, age) {
+            this.name = name
+            this.age = age
+        }
+        function FactoryChild(sex, name, age) {
+            this.sex = sex
+            Factory.call(this, name, age)
+        }
+        const f = new FactoryChild('男', 'Jack', 24)
+        console.log(f); // {sex: "男", name: "Jack", age: 24}
+    </script>
+</body>
+</html>

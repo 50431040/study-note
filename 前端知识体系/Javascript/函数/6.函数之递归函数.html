@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 递归函数即不断的调用自身，直到有返回结果
+         * 递归函数类似于入栈、出栈，当递归开始时会将每一次递归表达式入栈，当有返回结果时依次将结果传递到上一层表达式出栈。
+         */
+        // 阶乘
+        function factorial(num) {
+            if (num === 1) return 1
+            return factorial(num - 1) * num
+        }
+        console.log(factorial(5)); // 120
+
+        // 求和
+        function sum(num) {
+            if (num) {
+                return num + sum(num - 1)
+            }
+            return 0
+        }
+        console.log(sum(5)); // 15
+
+        function sum2(...args) {
+            if (args.length) {
+                return args.pop() + sum2(...args)
+            }
+            return 0
+        }
+        console.log(sum2(1, 2, 3, 4, 5));
+
+        // 倒三角
+        function star(num) {
+            if (num) {
+                document.write(`${'*'.repeat(num)}<br/>`)
+                star(--num)
+            }
+        }
+        star(10)
+    </script>
+</body>
+</html>
