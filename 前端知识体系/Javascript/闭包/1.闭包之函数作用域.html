@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 简单来说，闭包就是在多级函数嵌套下，内部函数可以调用外部函数成员，但外部却无法访问内部成员
+         * 作用域的概念
+         * 每次函数调用都会新开辟一块内存空间，彼此之间互不相关，存储当前变量成员
+         * 构造函数只是一种特殊的函数形式，每次new也会创建独立的空间
+         * 函数内返回一个新的函数，这个函数如果使用到了外部函数成员，就会导致外部函数不被销毁
+         */
+        const age = 12
+        function show() {
+            const name = 'Kyrie'
+            function s() {
+                const sex = '男'
+                console.log(name);
+            }
+            s()
+        }
+        show()
+        console.log(age);
+        // console.log(sex); // 报错
+
+        function Cal() {
+            this.i = 1
+            this.getNum = function() {
+                return ++this.i
+            }
+        }
+        const c = new Cal()
+        console.log(c.getNum()); // 2
+        console.log(c.getNum()); // 3
+        const c2 = new Cal()
+        console.log(c2.getNum()); // 2
+        console.log(c2.getNum()); // 3
+
+        function getCal() {
+            let count = 1
+            return function() {
+                return ++count
+            }
+        }
+        const fn = getCal()
+        console.log(fn()); // 2
+        console.log(fn()); // 3
+
+        const fn2 = getCal()
+        console.log(fn2()); // 2
+        console.log(fn2()); // 3
+    </script>
+</body>
+</html>
