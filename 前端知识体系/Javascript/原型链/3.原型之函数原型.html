@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * 函数除了__proto__属性之外，还存在prototype属性
+         * 函数的本质就是对象
+         * 使用函数来定义“类”，使用new来生成类的实例。实例不仅可以访问类中的成员，还可以访问原型上的成员
+         * 通常将实例方法定义在prototype上，实例的__proto__指向类的类型prototype
+         * 可以在函数的__proto__上定义“类方法”，但不推荐，适用于将函数当做对象使用的场景
+         * prototype除了__proto__属性（默认指向Object），还有constructor属性指向函数本身
+         * 拓展实例可以直接在函数的prototype上修改，如果直接赋值的话需要回填constructor
+         * new Parent.prototype.constrctor 与 new Parent 可以达到相同的效果
+         * 以字面量形式定义的变量，其实都是new 系统构造函数，其__proto__也就是构造函数的原型
+         */
+        function User(name) {
+            this.name = name
+        }
+        User.prototype.show = function() {
+            console.log(this.name);
+        }
+
+        User.__proto__.detail = function() {
+            console.log("__proto__属性");
+        }
+        const u = new User('Lebron')
+        
+        console.dir(User);
+        console.log(u);
+        console.log(u.__proto__ === User.prototype); // true
+
+        u.show()
+        console.log(u.detail); // undefined
+        User.detail()
+
+        console.log(User.__proto__ === User.prototype.__proto__); // false
+        console.log(User.__proto__ === User); // false
+        console.log(User.__proto__ === Object.prototype); // false
+        console.log(User.__proto__ === Function.prototype); // true
+        console.log(User.prototype.__proto__ === Object.prototype); // true
+        console.log(User.prototype.__proto__ === Function.prototype); // false
+        console.log(User.prototype.constructor === User); // true
+        console.log(u.__proto__ === User.prototype); // true
+
+        const u2 = new User.prototype.constructor('Irving')
+        u2.show() // Irving
+
+        const str = '123'
+        console.log(str.__proto__ === String.prototype); // true
+    </script>
+</body>
+</html>

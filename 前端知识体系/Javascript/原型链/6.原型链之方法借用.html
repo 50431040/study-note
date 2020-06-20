@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 在对象想实现某个方法，虽然自身不存在，但是可以借用其他对象中的方法
+         */
+        const obj = {
+            num: [1, 2, 5, 9, 6]
+        }
+        Object.setPrototypeOf(obj, {
+            sum(arr) {
+                arr = arr || this.num
+                return arr.reduce((pre, cur) => pre + cur, 0)
+            }
+        })
+        console.log(obj.sum());
+
+        const arr = [10, 6, 23]
+        console.log(obj.sum.call(null, arr));
+    </script>
+</body>
+</html>

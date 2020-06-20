@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+         * this遗留问题
+         * 排序
+         */
+        const user = {
+            name: 'Lebron',
+            getName() {
+                let _this = this
+                return function() {
+                    return _this.name
+                }
+            }
+        }
+        console.log(user.getName()());
+
+        function order(field, direction = 'asc') {
+            return function(a, b) {
+                return direction === 'asc' ? a[field] - b[field] : b[field] - a[field]
+            }
+        }
+        const arr = [
+            {
+                index: 3,
+                name: 'asd'
+            },
+            {
+                index: 2,
+                name: 'fgh'
+            },
+            {
+                index: 1,
+                name: 'bnm'
+            },
+            {
+                index: 4,
+                name: 'ghj'
+            }
+        ]
+        arr.sort(order('index', 'asc'))
+        console.log(arr);
+        // arr.sort(order('index', 'desc'))
+        // console.log(arr);
+    </script>
+</body>
+</html>

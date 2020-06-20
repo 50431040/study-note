@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 通过Object.create()实现继承
+         * 在父类带参构造函数中初始化属性，子类带参构造函数中使用call或apply完成属性初始化
+         */
+        function User() {}
+        User.prototype.show = function() {
+            console.log('User show');
+        }
+        function Admin() {}
+        const clone = Object.create(User.prototype)
+        console.log(clone);
+        Admin.prototype = clone
+        Object.defineProperty(Admin.prototype, 'constructor', {
+            value: Admin,
+            enumerable: true
+        })
+        Admin.prototype.role = function() {
+            console.log('admin role');
+        }
+        function Member() {}
+        Member.prototype = Object.create(User.prototype)
+        Object.defineProperty(Member.prototype, 'constructor', {
+            value: Member,
+            enumerable: true
+        })
+        Member.prototype.role = function() {
+            console.log('member role');
+        }
+
+        const admin = new Admin()
+        console.log(admin);
+        admin.show()
+        admin.role()
+        for(let key in admin) {
+            console.log(key);
+        }
+
+
+        function Factory(name, age) {
+            this.name = name
+            this.age = age
+        }
+        Factory.prototype.show = function() {
+            console.log(`My name is ${this.name}, my age is ${this.age}`);
+        }
+        function Product(name, age) {
+            Factory.call(this, name, age)
+        }
+        Product.prototype = Object.create(Factory.prototype)
+        Object.defineProperty(Product.prototype, 'constructor', {
+            value: Product
+        })
+        const p = new Product('Lebron', 34) 
+        p.show() // My name is Lebron, my age is 34
+
+
+        // 对象工厂继承
+        function createObj(sup, ...args) {
+            const instance = Object.create(sup.prototype)
+            sup.call(instance, ...args)
+            return instance
+        }
+        const p1 = createObj(Factory, 'Jack', 19) // My name is Jack, my age is 19
+        p1.show()
+
+        // 子类方法重写
+        function Human() {}
+        Human.prototype = Object.create(User.prototype)
+        Object.defineProperty(Human.prototype, 'constructor', {
+            value: Human
+        })
+        Human.prototype.show = function() {
+            // this.show() // 最大调用栈溢出
+            User.prototype.show()
+            console.log('Human show');
+        }
+        const h = new Human()
+        h.show()
+
+        // 原型工厂继承
+        function extend(sub, sup) {
+            sub.prototype = Object.create(sup.prototype)
+            sub.prototype.construtor = sub
+        }
+        function Product1(name, age) {
+            Factory.call(this, name, age)
+        }
+        extend(Product1, Factory)
+        const p2 = new Product1('Ming', 23)
+        p2.show() // My name is Ming, my age is 23
+    </script>
+</body>
+</html>

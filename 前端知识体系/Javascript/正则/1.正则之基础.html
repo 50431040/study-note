@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 字面量(//)或者RegExp定义正则表达式，前者一般不支持变量(可使用eval)，后者支持
+         * test检测字符串是否匹配，match获取匹配的结果
+         */
+        const str = 'asd4321sdc2c333vsx2cc';
+        // 方式1
+        const arr = [...str].filter(item => !Number.isNaN(parseInt(item)))
+        console.log(arr.join(''));
+
+        // 方式2
+        console.log(str.match(/\d/g).join(''));
+
+        console.log(/e/.test(str)); // false
+        console.log(/s/.test(str)); // true
+
+        const char = 'y'
+        console.log(eval(`/${char}/`).test(str)); // false
+    </script>
+</body>
+</html>

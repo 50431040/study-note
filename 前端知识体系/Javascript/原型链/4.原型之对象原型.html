@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * Object.getPrototypeOf()查看对象原型
+         * Object.setPrototypeOf()修改对象原型
+         * 对象的原型默认为Object
+         * 可以根据已有对象创建新的对象，达到类似"拷贝"的效果
+         * this跟原型没有关联，指向调用函数本身的对象
+         */
+        const child = {
+            name: 'child'
+        }
+        const parent = {
+            name: 'parent',
+            show() {
+                console.log(this.name);
+            }
+        }
+
+        console.dir(parent);
+        console.log(child.__proto__ === Object.prototype); // true
+        console.dir(Object.getPrototypeOf(child)); // Object
+        Object.setPrototypeOf(child, parent)
+        console.dir(Object.getPrototypeOf(child)); // parent
+        console.dir(child.__proto__); // parent
+        console.log(Object.getPrototypeOf(child) === child.__proto__); // true
+        child.show() // child
+        parent.show() // parent
+
+        function createByObject(parent, ...args) {
+            const constructor = Object.getPrototypeOf(parent).constructor
+            // const constructor = Parent.prototype.constructor
+            console.log(constructor);
+            return new constructor(...args)
+        }
+        function User (name) {
+            this.name = name
+        }
+        User.prototype = {
+            constructor: User,
+            show() {
+                console.log(this.name);
+            }
+        }
+        const u = new User('Irving')
+        const u2 = createByObject(u, 'Lebron')
+        u2.show() // Lebron
+    </script>
+</body>
+</html>

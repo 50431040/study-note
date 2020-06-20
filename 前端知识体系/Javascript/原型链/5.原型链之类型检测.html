@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * instanceof检测当前对象是否属于指定类型
+         * isPrototypeOf()检测当前类型是否为指定对象的原型,会沿原型链一直往上找
+         * 用in和hasOwnProperty检测当前对象是否包含指定类型，in将遍历出所有属性（含原型上的），hasOwnProperty判断是否为自身的属性
+         */
+        function Grandpa() {}
+
+        function Parent() {}
+
+        function Child() {}
+
+        const g = new Grandpa()
+        Parent.prototype = g
+        const p = new Parent()
+        Child.prototype = p
+        const c = new Child()
+        console.log(c);
+
+        console.log(c instanceof Child);
+        console.log(c instanceof Parent);
+        console.log(c instanceof Grandpa);
+        console.log(c.__proto__);
+        console.log(c.__proto__ === Parent.prototype);
+        console.log(c.__proto__ === Grandpa.prototype);
+        console.log(c.__proto__ === Child.prototype); // true
+        console.log(c.__proto__.__proto__ === Grandpa.prototype);
+        console.log(c.__proto__.__proto__ === Parent.prototype); // true
+        console.log(c.__proto__.__proto__.__proto__ === Grandpa.prototype); // true
+
+        console.log(Grandpa.prototype.isPrototypeOf(c)); // true
+        console.log(g.isPrototypeOf(c)); // true
+        console.log(Grandpa.isPrototypeOf(c)); // false
+        
+        const a = {
+            name: 'Lebron'
+        }
+        const b = {
+            age: 12
+        }
+        Object.setPrototypeOf(a, b)
+        for(let key in a) {
+            if (a.hasOwnProperty(key)) {
+                console.log('自身属性:' + key);
+            } else {
+                console.log('非自身属性：' + key);
+            }
+        }
+    </script>
+</body>
+
+</html>

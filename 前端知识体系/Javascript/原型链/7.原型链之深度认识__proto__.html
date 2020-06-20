@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 除了使用Object.create()和setPrototypeOf()修改原型外，还可以直接修改__proto__，但不推荐
+         * __proto__本质就是一对属性访问器，不可试图修改为非对象的类型值
+         * 用Object.create(null)创建的对象可以将__proto__修改为非对象的值
+         */
+        const user = {
+            show() {
+                console.log(this.name);
+            }
+        }
+        const u = Object.create(user, {
+            name: {
+                value: 'Lebron' // 指定value
+            }
+        })
+        u.show() // Lebron
+
+        const u2 = { name: 'Irving' }
+        Object.setPrototypeOf(u2, user)
+        u2.show() // Irving
+
+        const u3 = { name: 'Jack' }
+        u3.__proto__ = user
+        u3.show() // Jack
+
+        u3.__proto__ = 'Test'
+        console.log(u3.__proto__); // 未生效
+
+        const o = Object.create(null)
+        console.log(o.__proto__); // undefined
+        o.__proto__ = '123'
+        console.log(o.__proto__); // 123
+    </script>
+</body>
+</html>

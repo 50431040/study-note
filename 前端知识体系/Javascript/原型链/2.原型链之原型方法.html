@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * 对象包括属性和方法，同时会继承原型上的成员
+         * 如果对象和原型上有命名相同的成员，优先使用自身的成员
+         */
+        const user = {
+            name: 'Lebron',
+            render() {
+                return '123'
+            }
+        }
+        user.__proto__.render = function() {
+            return '456'
+        }
+        user.__proto__.age = 12
+        console.log(user.render()); // 123
+        console.log(user.age); // 12
+        console.log(user.prototype); // undefined
+    </script>
+</body>
+</html>

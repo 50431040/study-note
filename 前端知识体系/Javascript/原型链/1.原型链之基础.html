@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * 对于数组，对象而言，都存在一个__proto__的私有属性，称之为原型
+         * 对数组而言，__proto__会依次上溯到Array,Object，对象只上溯到Object
+         * 使用Object.getPrototypeOf()或者__proto__获取原型，hasOwnProperty()检测是否为自身的属性，而非原型上的
+         * 使用Object.create(null)创建无原型的对象，不可使用hasOwnProperty
+         */
+        const arr = [1, 2, 3]
+        const obj = {
+            name: 'Lebron',
+            age: 12
+        }
+        console.log(arr.__proto__);
+        console.log(obj.__proto__);
+        console.log(arr.__proto__ === Array.prototype); // true
+
+        console.log(Object.getPrototypeOf(arr));
+
+        console.log(obj.hasOwnProperty('name')); // true
+        console.log(obj.hasOwnProperty('toString')); // false
+
+        const o = Object.create(null, { name: 'Irving' })
+        console.log(o.__proto__); // undefined
+        console.log(o.hasOwnProperty('name')); // Uncaught TypeError: Property description must be an object: Irving
+    </script>
+</body>
+</html>
