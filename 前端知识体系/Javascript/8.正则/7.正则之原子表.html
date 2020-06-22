@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * []方括号中的任意一个字符
+         * 区间匹配：[0-9a-z]
+         * [^]非方括号的字符
+         * [\d\D] [\w\W] [\s\S] 匹配所有字符
+         * 内部字符都会被当做普通字符
+         */
+        const str = 'Lebron James'
+        console.log(str.match(/[a]/g));
+        console.log(str.match(/[.]/g)); // null
+
+        const reg = /^\d{4}([-/])\d{2}\1\d{2}/
+        console.log(reg.test('2020-08-10')); // true
+        console.log(reg.test('2020/08/10')); // true
+    </script>
+</body>
+</html>

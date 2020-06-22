@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * ^开头
+         * $结尾
+         * {}长度区间
+         */
+        console.log(/^\d/.test('1sad1ada42')); // true
+        console.log(/\d$/.test('1sad1ada12')); // true
+        console.log(/^\d$/.test('1sad1ada12')); // false
+        console.log(/^\d{1,2}[a-z1-9]+\d{1,2}$/.test('1sad1ada12')); // true
+    </script>
+</body>
+</html>

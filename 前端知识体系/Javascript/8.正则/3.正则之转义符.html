@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 使用反斜杠(\)对特殊符号(.[]-\/等)进行转义，在RegExp中定义需要双反斜杠(\\)
+         * 点(.)表示除换行外的任意字符
+         */
+        const reg = /\d+\.+\d/
+        console.log(reg.test(12.23)); // true
+        const reg2 = new RegExp('\\d+\\.+\\d')
+        console.log(reg2.test(156.7)); // true
+
+        const reg3 = /https?:\/\/\w+\.\w+(\/\w+)/
+        console.log(reg3.test('https://slower.top/blog')); // true
+    </script>
+</body>
+</html>

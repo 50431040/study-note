@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * g匹配所有满足的字符，否则最多匹配一个。如果使用g标志，则将返回与完整正则表达式匹配的所有结果，但不会返回捕获组。
+        如果未使用g标志，则仅返回第一个完整匹配及其相关的捕获组（Array）。
+         * i匹配不区分大小写且满足条件的字符
+         * s将字符串视为单行，回车符当做普通字符进行匹配
+         * m将字符串视为多行，每行作为一个单元单独进行匹配
+         * u能匹配指定语言（中文，英文）的字符（或标点，特殊字符）
+         * y匹配所有满足条件的字符，但和g不同的是，y使用exec和lastIndexOf检测，匹配完即结束（用于长文档搜索）
+         */
+        const str = 'Lebron James'
+        console.log('Lebron James'.match(/e/)); // ["e", index: 1, input: "Lebron James", groups: undefined]
+        console.log('Lebron James'.match(/e/g)); // ["e", "e"]
+        console.log('Lebron JamEs'.match(/e/g)); // ["e"]
+        console.log('Lebron JamEs'.match(/e/gi)); // ["e", "E"]
+        console.log('Lebron\nJames'.match(/.+/)); // ["Lebron"]
+        console.log('Lebron\nJames'.match(/.+/s)); // ["Lebron↵James"]
+        console.log('Lebron\nJames'.match(/.+/m)); // ["Lebron"]
+
+        const str2 = '下面我的联系方式：010-3222223，020-1234567，030-9087897'
+        console.log(str2.match(/\d{3}-\d{7}/g));
+
+        const reg = /(\d{3}-\d{7,8})，?/y
+        reg.lastIndex = 9 // 开始搜索的位置
+        const tels = []
+        let res
+        while(res = reg.exec(str2)) {
+            tels.push(res[1])
+        }
+        console.log(tels);
+
+    </script>
+</body>
+</html>

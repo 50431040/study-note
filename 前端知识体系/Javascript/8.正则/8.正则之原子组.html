@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .correct {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h3>https://www.slower.top</h3>
+        <h4>https://baidu.com</H5>
+        <h2>https://taobao.com</h2>
+    </div>
+
+    <div>
+        <button class="btn">替换成p标签</button>
+    </div>
+
+    <div>
+        <label for="email">请输入邮箱：</label>
+        <input id="email" />
+    </div>
+    <div class="message"></div>
+
+    <div>
+        <div class="links">
+            <a href="https://baidu.com">BaiDu</a>
+            <a href="https://github.com">GitHub</a>
+        </div>
+        <div>
+            <button class="getUrls">获取链接内容及url</button>
+        </div>
+    </div>
+    <script>
+        /**
+         * ()
+         * 可在正则中配置多个原子组，编号从1开始
+         * 可以使用match获取详情，结果包含[0, 1, 2, ..., index, groups, input]等信息，0代表匹配结果，后面的1,2...为匹配的原子组。index表示匹配的索引位，groups为原子组配置别名，input为原字符串
+         * 可用来替换某部分满足条件的字符串，使用$1,$2的形式获取原子组的内容
+         * 原子组可以使用?:不记录分组，将不再详情中显示
+         * ?<>为原子组命名，代替编号$1,$2，在groups中获取匹配到的别名信息
+         */
+         const content = document.querySelector('.content')
+         const reg = /<(h[1-6])>([\s\S]*)<\/\1>/
+         console.log(content.innerHTML.match(reg)); // ["<h3>https://slower.top</h3>", "h3", "https://slower.top", index: 9, input: "↵        <h3>https://slower.top</h3>↵        <h4>https://baidu.com</h4>↵    ", groups: undefined]
+         console.log(content.innerHTML.match(/<(h[1-6])>([\s\S]*)<\/\1>/g)); // 浏览器机制 ["<h3>https://slower.top</h3>", "<h4>https://baidu.com</h4>", "<h2>https://taobao.com</h2>"]
+         console.log(`<h3>https://slower.top</h3>
+        <h4>https://baidu.com</H5>
+        <h2>https://taobao.com</h2>`.match(/<(h[1-6])>([\s\S]*)<\/\1>/g)); // ["<h3>https://slower.top</h3>", "<h2>https://taobao.com</h2>"]
+
+        // 替换成p标签
+        const btn = document.querySelector('.btn')
+        btn.addEventListener('click', function() {
+            content.innerHTML = content.innerHTML.replace(/<(h[1-6])>([\s\S]*)<\/\1>/ig, `<p>$2</p>`)
+        })
+
+        const email = document.getElementById('email')
+        const message = document.querySelector('.message')
+        const emailReg = /^\w+@\w+\.\w+$/
+        email.addEventListener('input', function() {
+            const validate = this.value.match(emailReg)
+            message.innerHTML = validate ? '格式正确' : '格式错误'
+            message.classList.remove('correct', 'error')
+            message.classList.add(validate ? 'correct' : 'error')
+        })
+
+        console.log(content.innerHTML.match(/https?:\/\/((\w+\.)?\w+\.\w+)/)); // ["https://www.slower.top", "www.slower.top", "www.", index: 13, input: "↵        <h3>https://www.slower.top</h3>↵        <…com</h4>↵        <h2>https://taobao.com</h2>↵    ", groups: undefined]
+        // 没有 "www."这项
+        console.log(content.innerHTML.match(/https?:\/\/((?:\w+\.)?\w+\.\w+)/)); // ["https://www.slower.top", "www.slower.top", index: 13, input: "↵        <h3>https://www.slower.top</h3>↵        <…com</h4>↵        <h2>https://taobao.com</h2>↵    ", groups: undefined]
+
+        const getUrlsBtn = document.querySelector('.getUrls')
+        const linksWrap = document.querySelector('.links')
+        // const reg3 = /<a.*href=(['"])(?<link>[\s\S]+)\1>(?<content>[\s\S]+)<\/a>/ig
+        const reg3 = /<a.*href=(['"])(?<link>.*?)\1>(?<content>.*?)<\/a>/ig // 不能包含换行，否则会匹配到最后一个标签的结束标签
+        getUrlsBtn.addEventListener('click', function() {
+            const res = []
+            const result = linksWrap.innerHTML.matchAll(reg3)
+            for(item of result) {
+                console.log(item);
+                res.push(item.groups)
+            }
+            console.log(res);
+        })
+        
+    </script>
+</body>
+</html>

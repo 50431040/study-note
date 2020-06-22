@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * \d代表0-9的数字，\D代表非数字字符
+         * \s代表空白字符（空格，制表符，换行符），\S代表非空白字符
+         * \w代表所有的字母，数字，下划线。\W代表除字母，数字，下划线的其他字符
+         * .代表除换行符之外的所有字符
+         */
+        const str = '12309Lebron2019qwer2a5'
+        console.log(str.match(/\d+/g)); // ["12309", "2019", "2", "5"]
+        console.log(str.match(/\D+/g)); // ["Lebron", "qwer", "a"]
+
+        console.log(/\s/.test('Lebron James')); // true
+        console.log(/\s/.test('LebronJames\t')); // true
+        console.log(/\s/.test('LebronJames\n')); // true
+        console.log(/\S/.test(' ')); // false
+
+        const str2 = 'saf123cvx3v_2%sf*wd#13'
+        console.log(str2.match(/\w+/g)); // ["saf123cvx3v_2", "sf", "wd", "13"]
+
+        console.log(str2.match(/.+/g)); // ["saf123cvx3v_2%sf*wd#13"]
+
+        const str3 = `
+        <div>
+            _1234#
+            dsas23&
+        </div>
+        `
+        console.log(str3.match(/<div>[\d\D]+<\/div>/g)); // ["<div>↵            _1234#↵            dsas23&↵        </div>"]
+        console.log(str3.match(/<div>[\w\W]+<\/div>/g)); // ["<div>↵            _1234#↵            dsas23&↵        </div>"]
+        console.log(str3.match(/<div>[\s\S]+<\/div>/g)); // ["<div>↵            _1234#↵            dsas23&↵        </div>"]
+        console.log(str3.match(/<div>.+<\/div>/g)); // null
+        console.log(str3.match(/<div>.+<\/div>/gs)); // ["<div>↵            _1234#↵            dsas23&↵        </div>"]
+    </script>
+</body>
+</html>
