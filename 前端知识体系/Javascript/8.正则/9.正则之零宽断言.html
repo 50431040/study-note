@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 判断正则表达式的首尾是否满足某种条件
+         * 断言不参与匹配，仅当做条件限制
+         * 也是用()，但是不属于原子组，也不会产生groups
+         * 零宽先行断言(?=) 判断满足正则条件下后面是某种条件
+         * 零宽后行断言(?<=) 判断满足正则条件下前面是某种条件
+         * 零宽负向先行断言(?!) 判断满足正则条件下后面不是某种条件
+         * 零宽负向后行断言(?<!) 判断满足正则条件下前面不是某种条件
+         * $& 第一个正则表达式参数所匹配的内容
+         */
+        const str = 'https://slower.top?name=123,https://baidu.com?keyword=qwe,https://github.com?name=sss'
+        console.log(str.match(/https?:\/\/\w+\.\w+\?name=(?=123)/g));
+        const result7 = str.replace(/https?:\/\/\w+\.\w+\?name=(?=123)/g, '<a href="$0"></a>') // 不行
+        const result = str.replace(/https?:\/\/\w+\.\w+\?name=(?=123)/g, '<a href="$&"></a>')
+        const result6 = str.replace(/(https?:\/\/\w+\.\w+\?name=(?=123))/g, '<a href="$1"></a>')
+        console.log(result6);
+        console.log(result7);
+        console.log(result); // <a href="https://slower.top?name="></a>123,https://baidu.com?keyword=qwe,https://github.com?name=sss
+
+        // 匹配所有单位为元的，且为他们加上小数(.00)
+        const str2 = '1200元,1300,a12,qwe,3400.00元,1234'
+        const result2 = str2.replace(/(\d+)(.00)?(?=元)/g, (val, ...args) => {
+            return args[1] ? args[0] + args[1] : args[0] + '.00'
+        })
+        console.log(result2);
+
+        // 将所有a标签的链接替换为https://jd.com
+        const result3 = result.replace(/(?<=href=(['"])).+(?=\1)/g, 'https://jd.com')
+        // 方式2
+        const result4 = result.replace(/(href=(['"])).+(\2)/g, `$1https://jd.com$3`)
+        console.log(result3);
+        console.log(result4);
+
+        // 电话号码中间四位模糊处理
+        const str3 = '15734232345, 18209129898'
+        const result5 = str3.replace(/(?<=\d{3})\d{4}(?=\d{4})/g, '*'.repeat(4))
+        console.log(result5); // 157****2345, 182****9898
+
+        // 后面不是数字的字符串
+        console.log('Mike123Jack'.match(/[A-z]+(?!\d+)$/g)); // ["Jack"]
+
+        // 前面不是数字的字符串
+        console.log('Mike123Jack'.match(/(?<!\d+)[A-z]+/g)); // ["Mike", "ack"]
+
+        console.log('asvxc12323adc1234c2345b'.match(/(?<!c)\d+(?!c)/g)); // ["2323", "23", "345"]
+    </script>
+</body>
+</html>
