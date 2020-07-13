@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * search 第一个满足正则表达式的索引，未找到返回-1(与indexOf类似)
+         * match 满足条件的结果集，不加g会返回匹配到的index, groups等内容
+         * matchAll 所有满足正则表达式的字符串的迭代器
+         * split 以满足正则表达式的字符串拆分
+         * replace 替换满足正则表达式的子字符串(默认只替换第一个，使用g全部替换)
+         * test 判断是否满足某正则表达式
+         * exec 获取匹配的详情，与match类似。但在全局匹配时,match返回匹配结果，exec会根据lastIndex继续匹配并可以获取到详情
+         */
+        console.log('Lebron James'.search(/e/g)); // 1
+
+        const urls = 'https://slower.top, https://www.baidu.com, https://www.github.com'
+        const result = urls.matchAll(/https?:\/\/\w+\.\w+\.\w+/g)
+        for(let item of result) {
+            console.log(item);
+        }
+
+        console.log('2020/06/24'.split(/[/-]/)); // ["2020", "06", "24"]
+        console.log('2020-06-24'.split(/[/-]/)); // ["2020", "06", "24"]
+        console.log('2020-06-24 2020/06/24'.split(/(\/|-)/)); // ["2020", "-", "06", "-", "24 2020", "/", "06", "/", "24"]
+        console.log('2020,06,24'.split(/[/-]/)); // ["2020,06,24"]
+
+        const tels = '(010)1122334, (030)9876543'
+        console.log(tels.replace(/\((\d{3})\)(\d{7})/g, '$1-$2'));
+
+        const name = '234ab#bLebron*&'
+        console.log(name.replace(/Lebron/, '$&')); // 234ab#bLebron*&
+        console.log(name.replace(/Lebron/, '$`')); // 234ab#b234ab#b*&
+        console.log(name.replace(/Lebron/, '$\'')); // 234ab#b*&*&
+
+        function getCount(str, char) {
+            let count = 0, re
+            const reg = new RegExp(`${char}`, 'g')
+            while(re = reg.exec(str)) {
+                count++
+            }
+            return count
+        }
+        console.log(getCount('Lebron James is a backetball Star', 'a'));
+    </script>
+</body>
+</html>

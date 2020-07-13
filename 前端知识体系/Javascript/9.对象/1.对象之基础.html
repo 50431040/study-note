@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+         * 字面量方式{}定义对象
+         * . 或者 [] 访问对象成员
+         * delete 删除对象成员
+         * 当对象的属性或方法不符合标准命名时，只能用['']访问
+         * 对象是引用类型，当对象赋值或作为函数参数时，传递的都是引用地址
+         */
+        const user = {
+            name: 'Lebron',
+            age: 15
+        }
+        console.log(user['age']);
+        delete user.age
+        console.log(user.age); // undefined
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 展开语法，常用于扩展成员、参数合并
+         * 从对象中解构所需的成员，与顺序无关，可使用展开语法解构剩下的成员（必须放最后）
+         * 对解构出来的成员取别名
+         * 对函数参数进行解构
+         * 对多层对象进行解构
+         * 对解构的成员设置默认值
+         */
+        const u1 = {
+            name: 'Lebron'
+        }
+        const u2 = {
+            age: 20
+        }
+        const u3 = { ...u1, ...u2, address: 'ChengDu' }
+        console.log(u3);
+        const { name, age, address: add, sex = '男' } = u3
+        console.log(name, age, add, sex);
+
+        function show({ name }) {
+            console.log(`My name is ${name}`);
+        }
+        show({ name: 'Lebron' })
+
+        
+    </script>
+</body>
+</html>

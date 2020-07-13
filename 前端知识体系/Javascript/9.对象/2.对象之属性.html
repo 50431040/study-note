@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * . 或者 [] 添加新的属性
+         * delete 删除已有属性
+         * hasOwnProperty()检测是否为自身属性
+         * in 可遍历自身和原型链上的属性
+         * Object.assign() 可用于对象合并
+         * Object.keys() 所有键的集合
+         * Object.values() 所有值的集合
+         * Object.entries() 键值对组成的数组集合
+         * for...in/of 遍历
+         * getOwnPropertyDescriptor 查看属性特征(值，可修改，可枚举，可配置)
+         * defineProperty 添加属性 配置属性特征
+         * defineProperties 添加多个属性及属性特征
+         * preventExtensions() 禁止添加属性
+         * seal() 封闭对象，禁止添加属性，定义属性特征，删除属性
+         * isSealed() 是否被封闭
+         * freeze() 冻结对象，禁止添加属性，定义属性特征，删除属性，修改属性值
+         * isFrozen() 是否被冻结
+        /**/
+        const user = {
+            name: 'Lebron'
+        }
+        user.age = 35
+        console.log(user.age);
+        delete user.name
+        console.log(user.name);
+        console.log(user.hasOwnProperty('age')); // true
+
+        const obj = {
+            address: 'ChengDu'
+        }
+        Object.setPrototypeOf(user, obj)
+        console.log(user.hasOwnProperty('address')); // false
+        console.log('address' in user); // true
+
+        // 对象数组转为对象
+        const posts = [
+            {
+                title: '标题1',
+                author: 'Jack'
+            },
+            {
+                title: '标题2',
+                author: 'Mike'
+            },
+            {
+                title: '标题3',
+                author: 'Bill'
+            }
+        ]
+        const result = posts.reduce((pre, cur, index) => {
+            pre[`${index} - ${cur.title}`] = cur
+            return pre
+        }, {})
+        console.log(result);
+
+        const u2 = {
+            name: 'Irving',
+            age: '25',
+            sex: 'female'
+        }
+        console.log(Object.keys(u2));
+        console.log(Object.values(u2));
+        console.log(Object.entries(u2));
+        console.log(JSON.stringify(Object.entries(u2), null, 4));
+        for(let [key, value] of Object.entries(u2)) {
+            console.log(key, value);
+        }
+        console.log(Object.getOwnPropertyDescriptor(u2, 'name')); // {value: "Irving", writable: true, enumerable: true, configurable: true}
+
+        const u3 = {}
+        Object.defineProperty(u3, 'address', {
+            value: 'America'
+        })
+        console.log(u3);
+        Object.defineProperty(u3, 'name', {
+            writable: false
+        })
+        console.log(u3);
+        u3.name = '123'
+        console.log(u3);
+
+        Object.defineProperty(u3, 'age', {
+            enumerable: true
+        })
+        console.log('age' in u3);
+        for(let key in u3) {
+            console.log(key);
+        }
+
+        Object.defineProperty(u3, 'sex', {
+            configurable: false
+        })
+        // 报错
+        // Object.defineProperty(u3, 'sex', {
+        //     configurable: true
+        // })
+
+        Object.defineProperties(u3, {
+            subjects: {
+                value: 'Math',
+                enumerable: false
+            },
+            price: {
+                value: 12,
+                enumerable: true
+            }
+        })
+        console.log(u3);
+        for(let key in u3) {
+            console.log(key);
+        }
+
+        const o1 = {
+            name: 'LJL'
+        }
+        Object.preventExtensions(o1)
+        o1.age = 20
+        console.log(o1); // {name: "LJL"}
+
+
+        const o2 = {
+            name: 'LJL'
+        }
+        Object.seal(o2)
+        // 报错
+        // Object.defineProperty(o1, 'age', {
+        //     writable: true
+        // }) 
+        o2.age = 20
+        console.log(Object.isSealed(o2));
+        delete o2.name
+        o2.name = 'James'
+        console.log(o2); // {name: "James"}
+
+        Object.freeze(o2)
+        o2.name = 'Lebron'
+        console.log(o2); // {name: "James"}
+    </script>
+</body>
+</html>
