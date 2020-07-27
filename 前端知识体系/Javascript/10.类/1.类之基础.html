@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * 类的本质是函数（语法糖, typeof 返回 function）
+         * 构造函数 constructor 用于初始化
+         * 使用 new 实例化类的对象，与函数类似
+         * class 会把属性挂载到实例上，方法挂载到原型上
+         * 使用 class 实例化的属性只能遍历属性，不能遍历方法，本质是 class 修改了方法的属性特征（enumerable）
+         * 可以使用 Object.getOwnPropertyNames() 获取实例或原型上的各自的成员
+         * 方法内部嵌套函数this等于undefined，相当于处于严格模式（严格模式下function内部嵌套函数this为undefined，非严格模式为window）
+        */
+
+        {
+            // 使用class
+            class User {
+                constructor(name, age) {
+                    this.name = name
+                    this.age = age
+                }
+                show() {
+                    console.log(`My name is ${this.name}, and age is ${this.age}`);
+                }
+            }
+            const user = new User('Lebron', 35)
+            console.log(typeof User); // function
+            console.dir(User)
+            console.log(User === User.prototype.constructor); // true
+            console.dir(user)
+            console.log(Object.getOwnPropertyNames(user)); // ["name", "age"]
+            console.log(Object.getOwnPropertyNames(User.prototype)); // ["constructor", "show"]
+            console.log(Object.getOwnPropertyDescriptor(User.prototype, 'show')); // {writable: true, enumerable: false, configurable: true, value: ƒ}
+            user.show()
+            for(const key in user) {
+                console.log(key);
+            }
+
+        }
+
+        console.log('**********使用function定义*********');
+        {
+            function User(name, age) {
+                this.name = name
+                this.age = age
+            }
+            User.prototype.show = function() {
+                console.log(`My name is ${this.name}, and age is ${this.age}`);
+            }
+            const user = new User('Lebron', 35)
+            console.log(typeof User);
+            console.dir(User)
+            console.log(User === User.prototype.constructor); // true
+            console.dir(user)
+            console.log(Object.getOwnPropertyNames(user)); // ["name", "age"]
+            console.log(Object.getOwnPropertyNames(User.prototype)); // ["constructor", "show"]
+            console.log(Object.getOwnPropertyDescriptor(User.prototype, 'show')); // {writable: true, enumerable: true, configurable: true, value: ƒ}
+            user.show()
+            for(const key in user) {
+                console.log(key);
+            }
+        }
+
+        
+        // 内部定义函数
+        console.log('**********class的方法内部定义函数*********');
+        {
+            class User {
+                show() {
+                    function f() {
+                        console.log(this);
+                    }
+                    f()
+                }
+            }
+            new User().show()
+        }
+
+        console.log('**********class的方法内部定义函数*********');
+        {
+            
+            function User() {}
+            User.prototype.show = function() {
+                function f() {
+                    console.log(this);
+                }
+                f()
+            }
+            new User().show()
+        }
+    </script>
+</body>
+</html>

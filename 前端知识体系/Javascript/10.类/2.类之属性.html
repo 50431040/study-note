@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * 类的属性分为对象属性和静态属性
+         * 建议将对象属性放在 constructor中声明和初始化
+         * 在 class 中使用 static 声明静态属性，function 形式则在构造函数上声明
+         * class 中使用 static 声明静态方法，function 形式则在构造函数或 __proto__上声明
+         * 静态方法可与实例方法同名，但不推荐。静态方法中的 this 指向当前类或构造函数
+         * 使用#添加私有属性和方法，只能在类里面使用，实例和外部无法访问
+         * 可使用命名规则(一般使用_标记私有属性)进行属性保护，但仅限于约定，外部仍然可以修改
+         * 可使用Symbol或者WeakMap进行属性保护，虽然也能修改但一般不会导出，外界无法使用
+        */
+        {
+            class User {
+                static address = 'ChengDu'
+                constructor(name, age) {
+                    this.name = name
+                    this.age = age
+                }
+                show() {
+                    console.log(`My name is ${this.name}, I am ${this.age} years old`);
+                }
+                static show() {
+                    console.log('this is static show');
+                }
+                static create(...args) {
+                    return new this(...args)
+                }
+            }
+
+            const user = new User('Lebron', 12)
+            user.show()
+            User.show()
+            console.log(user.address);
+            console.log(User.address);
+
+            const u2 = new User('Irving', 15)
+            u2.show()
+        }
+
+        {
+            function User(name, age) {
+                this.name = name
+                this.age = age
+            }
+            User.address = 'ChengDu'
+            User.show = function() {
+                console.log('this is static show2');
+            }
+            User.__proto__.show = function() {
+                console.log('this is static show3');
+            }
+            User.prototype.show = function() {
+                console.log(`My name is ${this.name}, I am ${this.age} years old`);
+            }
+            const user = new User('Jack', 18)
+            user.show();
+            User.show()
+            console.dir(user)
+            console.dir(User)
+        }
+
+        // 私有属性，实例和外部都无法访问
+        {
+            class User {
+                #data = {}
+                constructor(name) {
+                    this.#data.name = name
+                }
+                get name() {
+                    return this.#data.name
+                }
+            }
+            const user = new User('Lebron')
+            console.log(user.name);
+            // console.log(user.#data);
+        }
+
+        // 使用_保护属性
+        {
+            class User {
+                _data = {}
+                constructor(name) {
+                    this._data.name = name
+                }
+                get name() {
+                    return this._data.name
+                }
+            }
+            const user = new User('Lebron')
+            console.log(user.name);
+            user._data.name = 'Lebron2'
+            console.log(user.name);
+        }
+
+        // 使用Symbol保护属性
+        {
+            const DATA = Symbol()
+            class User {
+                constructor(name) {
+                    this[DATA] = {
+                        name
+                    }
+                }
+                get name() {
+                    return this[DATA].name
+                }
+            }
+            const user = new User('Lebron')
+            console.log(user.name);
+            user[DATA].name = 'Lebron2'
+            console.log(user.name);
+        }
+
+        // 使用WeakMap保护属性
+        {
+            const wp = new WeakMap
+            class User {
+                constructor(name) {
+                    wp.set(this, { name })
+                }
+                get name() {
+                    return wp.get(this).name
+                }
+            }
+            const user = new User('Lebron')
+            console.log(user.name);
+            wp.set(user, { name: 'Lebron3' })
+            console.log(user.name);
+        }
+    </script>
+</body>
+</html>

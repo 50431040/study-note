@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>使用Proxy实现类似Vue的双向绑定功能</p>
+    <div>
+        <input type="text" v-model="content" />
+    </div>
+    <div>
+        <input type="text" v-model="content" />
+    </div>
+    <h2 v-bind="content"></h2>
+    <script>
+        /*
+         * 使用Proxy对对象进行代理，通过代理与对象本身进行通信
+         * 使用Proxy对函数进行代理，以完成与函数相关的赋值功能（如日志，异常，耗时）
+         * 使用Proxy对数组进行代理，以完成数组相关的数据操作
+         * 使用Proxy实现类似Vue的双向绑定功能
+        */
+        
+        // 代理对象
+        const user = {
+            name: 'Lebron',
+            age: 35
+        }
+        const p1 = new Proxy(user, {
+            get(obj, prop) {
+                return obj[prop]
+            },
+            set(obj, prop, val) {
+                obj[prop] = val
+            }
+        })
+        console.log(p1);
+        p1.name = 'Irving'
+        console.log(p1);
+
+        // 代理函数
+        function factorial(num) {
+            return num === 1 ? 1 : num * factorial(num - 1)
+        }
+        const p2 = new Proxy(factorial, {
+            apply(fn, obj, args) {
+                console.time('run');
+                const res = fn.apply(obj, args)
+                console.timeEnd('run');
+                return res
+            }
+        })
+        console.log(p2.apply(null, [100]));
+        console.log(p2.apply(null, [5]));
+
+        // 代理数组，与对象类似
+        const arr = [
+            {
+                title: 'Js',
+                count: 10
+            },
+            {
+                title: 'Html',
+                count: 5
+            },
+            {
+                title: 'Css',
+                count: 5
+            }
+        ]
+        const p3 = new Proxy(arr, {
+            get(arr, key) {
+                return arr[key].count
+            }
+        })
+        console.log(p3);
+        for(const key in p3) {
+            console.log(p3[key]);
+        }
+
+        function View() {
+            const proxy = new Proxy({}, {
+                set(obj, prop, val) {
+                    document.querySelectorAll(`[v-bind=${prop}]`).forEach(el => el.innerHTML = val)
+                    document.querySelectorAll(`[v-model=${prop}]`).forEach(el => el.value = val)
+                }
+            })
+
+            this.init = function() {
+                const ele = document.querySelectorAll('[v-model]')
+                ele.forEach(el => {
+                    el.addEventListener('keyup', function() {
+                        proxy[el.getAttribute('v-model')] = el.value
+                    })
+                })
+            }
+        }
+        new View().init()
+    </script>
+</body>
+</html>

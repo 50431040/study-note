@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * class定义的类使用extends和super，function需要使用call(或者apply)完成属性继承，且需要修改原型和回填constructor
+         * 已有继承类，需要拓展新的功能类，但与功能类没有继承关系，可使用minxin机制
+        */
+
+        // 使用class实现继承
+        {
+            class User {
+                constructor(name, age) {
+                    this.name = name
+                    this.age = age
+                }
+                show() {
+                    console.log(`My name is ${this.name}, and I am ${this.age} years old`);
+                }
+            }
+
+            class Admin extends User {
+                constructor(name, age) {
+                    super(name, age)
+                }
+            }
+
+            console.dir(Admin)
+            const admin = new Admin('Lebron', 15)
+            admin.show()
+            console.dir(admin)
+            console.log(admin.__proto__ === Admin.prototype);
+        }
+
+        // 使用function实现继承
+        {
+            function User(name, age) {
+                this.name = name
+                this.age = age
+            }
+            User.prototype.show = function() {
+                console.log(`My name is ${this.name}, and I am ${this.age} years old`);
+            }
+
+            function Admin(name, age) {
+                User.call(this, name, age)
+            }
+            // 继承prototype上的属性
+            Admin.prototype = Object.create(User.prototype)
+            // 回填构造函数
+            Object.defineProperty(Admin.prototype, 'constructor', {
+                value: Admin,
+                enumerable: false
+            })
+            console.dir(Admin)
+            const admin = new Admin('Lebron', 15)
+            admin.show()
+        }
+
+        // minxin
+        {
+            const obj = {
+                total(arr) {
+                    return arr.reduce((pre, cur) => pre += cur, 0)
+                }
+            }
+            class User {
+                constructor(name, age) {
+                    this.name = name
+                    this.age = age
+                    Object.assign(User.prototype, obj)
+                }
+                show() {
+                    console.log('show');
+                }
+            }
+
+            console.dir(User)
+            const user = new User('Lebron', 12, [1, 2, 3])
+            console.log(user.total([1, 2, 3]));
+        }
+    </script>
+</body>
+</html>

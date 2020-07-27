@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * 为了更细粒度的控制对象的属性，可为对象属性配置getter和setter，检测属性的合法性
+         * 使用访问器为对象拓展新的属性，可以封装复杂的业务逻辑，提供统一简洁的接口
+         * 使用访问器可批量为属性赋值，同时处理多个属性
+         * 使用访问器可配置上下文请求的token值，以更优雅的方式存储token
+         * 访问器和属性同名时，访问器的优先级高于同名属性（严格模式下不可重名），建议同名属性使用Symbol
+         * 在Object.defineProperties()使用访问器
+        */
+        const user = {
+            data: {
+                name: 'Lebron James',
+                age: 35
+            },
+            get name() {
+                return this.data.name
+            },
+            set name(val) {
+                if (!val) {
+                    throw new Error('名字不能为空')
+                }
+                this.data.name = val
+            },
+            get age() {
+                return this.data.age
+            },
+            set age(val) {
+                if (typeof val !== 'number') {
+                    throw new Error('年龄不能为非数字')
+                }
+                this.data.age = val
+            }
+        }
+        console.log(user.name , user.age);
+        // user.name = ''
+        user.age = 12
+        // user.age = '12'
+        console.log(user.age);
+
+        //  拓展新属性
+        const blog = {
+            post: [
+                {
+                    title: 'Js',
+                    count: 10
+                },
+                {
+                    title: 'Html',
+                    count: 5
+                },
+                {
+                    title: 'Css',
+                    count: 5
+                }
+            ],
+            get total() {
+                return this.post.reduce((pre, cur) => pre + cur.count, 0)
+            }
+        }
+
+        console.log(blog.total); // 20
+        blog.post[0].count = 30
+        console.log(blog.total); // 40
+
+        // 批量赋值
+        const user2 = {
+            firstName: 'Lebron',
+            lastName: 'James',
+            get name() {
+                return `${this.firstName} ${this.lastName}`
+            },
+            set name(val) {
+                [this.firstName, this.lastName] = val.split(' ')
+            }
+        }
+        console.log(user2.name); // Lebron James
+        user2.name = 'Kyrie Irving'
+        console.log(user2.firstName, user2.lastName); // Kyrie Irving
+
+        // token处理
+        const obj = {
+            get token() {
+                const t = localStorage.getItem('token')
+                if (!t) {
+                    throw new Error('token不存在')
+                }
+                return t
+            },
+            set token(val) {
+                localStorage.setItem('token', val)
+            }
+        }
+        obj.token = 'safjkb28njnsf',
+        // obj.token = ''
+        console.log(obj.token);
+
+        // 访问器优先级
+        const user3 = {
+            name: '123',
+            get name() {
+                return '456'
+            }
+        }
+        console.log(user3.name); // 456
+
+        const DATA = Symbol('data')
+        const user4 = {
+            [DATA]: {
+                name: '123'
+            },
+            get name() {
+                return this[DATA].name
+            },
+            set name(val) {
+                this[DATA].name = val
+            }
+        }
+        console.log(user4.name); // 123
+        user4.name = '456'
+        console.log(user4.name); // 456
+
+        // 类中使用构造器
+        class User {
+            constructor(name, age) {
+                this.data = {
+                    name,
+                    age
+                }
+            }
+            get name() {
+                return this.data.name
+            }
+            set name(val) {
+                if (!val) {
+                    throw new Error('名字不能为空')
+                }
+                this.data.name = val
+            }
+            get age() {
+                return this.data.age
+            }
+            set age(val) {
+                if (typeof val !== 'number') {
+                    throw new Error('年龄不能为非数字')
+                }
+                this.data.age = val
+            }
+        }
+        const user5 = new User('Jack', 18)
+        console.log(user5.name, user5.age);
+        // user5.name = ''
+        // user5.age = '18'
+    </script>
+</body>
+</html>

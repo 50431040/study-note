@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 函数工厂
+         * 构造函数
+         * 内置构造函数（Number,Date）,通过valueOf()获取值
+         * 根据闭包和作用域的知识，定义内部私有属性和方法，仅暴露必要的成员
+        */
+        function person(name) {
+            return {
+                name
+            }
+        }
+        const p = person('Lebron')
+        console.log(p);
+
+        function Person(name, age) {
+            this.name = name
+            this.age = age
+        }
+        const p2 = new Person('Irving', 26)
+        console.log(p2);
+
+        const n = Number(1)
+        console.log(n.valueOf());
+        const d = new Date()
+        console.log(d.valueOf());
+
+        function Animal(name, age) {
+            // 私有属性
+            const detail = { name, age }
+            // 私有方法
+            const show = function() {
+                console.log('我是私有的');
+            }
+            // 暴露方法
+            this.export = function() {
+                console.log(`My name is ${name}, age is ${age}`);
+                // 调用私有方法
+                show()
+            }
+        }
+        const a = new Animal('dog', 12)
+        a.export()
+    </script>
+</body>
+</html>

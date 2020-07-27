@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        * JSON.stringify(obj, props, tabs) 需要显示的属性和格式
+        * JSON.parse(str, func) 对对象再次处理
+        * 可在对象内部定义toJSON返回需要被序列化的对象
+        */
+        const user = {
+            name: 'Lebron',
+            age: 35,
+            toJSON() {
+                return {
+                    name: this.name,
+                    age: 40,
+                    address: 'Cheng Du'
+                }
+            }
+        }
+        const str = JSON.stringify(user);
+        console.log(str); // {"name":"Lebron","age":40,"address":"Cheng Du"}
+
+        console.log(JSON.stringify(user, ['name', 'age'], 2));
+
+        console.log(JSON.parse(str));
+
+        console.log(JSON.parse(str, (key, val) => {
+            if (key === 'age') {
+                val = val + 1
+            }
+            return val
+        })); // {name: "Lebron", age: 41, address: "Cheng Du"}
+    </script>
+</body>
+</html>
