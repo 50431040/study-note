@@ -4,12 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        dl {
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        dt {
+            height: 40px;
+            background-color: #9b59b6;
+            color: #fff;
+            line-height: 40px;
+        }
+        dd {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 0;
+            margin: 0;
+            overflow: hidden;
+            background-color: #ddd;
+            font-size: 36px;
+        }
+        dl > dd:first-of-type {
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
+    <dl>
+        <dt>Vue</dt>
+        <dd>1</dd>
+        <dt>React</dt>
+        <dd>2</dd>
+        <dt>Node</dt>
+        <dd>3</dd>
+    </dl>
     <script>
         /*
          * class定义的类使用extends和super，function需要使用call(或者apply)完成属性继承，且需要修改原型和回填constructor
          * 已有继承类，需要拓展新的功能类，但与功能类没有继承关系，可使用minxin机制
+         * class定义的类使用extends即可继承静态属性和方法，function定义的类需要将__proto__指向父类
+         * 可以使用extends继承内置类(Array, Date等)，以达到复用现有类的同时拓展新的功能
+         * 子类的constructor中调用super()可以继承父类的属性和方法
+         * 如果子类存在构造函数，一定要先使用super()调用父类构造函数。子类可缺省构造函数
+         * 如果子类存在同名方法，则子类对象优先调用自身的，使用super.xx()可调用父类的同名方法
+         * super的本质就是使子类的原型(__proto__)，指向父类对象。调用父类方法时相当于 this.__proto__.xx.call(this)
         */
 
         // 使用class实现继承
@@ -83,6 +123,137 @@
             console.dir(User)
             const user = new User('Lebron', 12, [1, 2, 3])
             console.log(user.total([1, 2, 3]));
+        }
+
+
+        class Animation {
+            constructor(el) {
+                this.el = el
+            }
+            get height() {
+                return parseFloat(window.getComputedStyle(this.el).height)
+            }
+            set height(h) {
+                this.el.style.height = `${h}px`
+            }
+            show() {
+                const iv = setInterval(() => {
+                    if (this.height >= 100) {
+                        clearInterval(iv)
+                    }
+                    this.height = this.height + 1
+                }, 5)
+            }
+            hide() {
+                const iv = setInterval(() => {
+                    if (this.height <= 0) {
+                        clearInterval(iv)
+                    }
+                    this.height = this.height - 1
+                }, 5)
+            }
+        }
+
+        class Panel extends Animation {
+            static hideAll(panels, callback) {
+                panels.forEach(panel => {
+                    panel.hide()
+                })
+                callback && callback()
+            }
+        }
+
+        class Slide {
+            constructor(el) {
+                this.el = document.querySelector(el)
+                this.links = this.el.querySelectorAll(`dt`)
+                this.panels = [...this.el.querySelectorAll('dd')].map(item => new Panel(item))
+                this.bind()
+            }
+            bind() {
+                this.links.forEach((link, index) => {
+                    link.addEventListener('click', () => this.action(index))
+                })
+            }
+            action(index) {
+                Panel.hideAll(this.panels, () => { this.panels[index].show() })
+            }
+        }
+        new Slide('dl')
+
+        // class实现静态继承
+        {
+            class User {
+                static show() {
+                    console.log('this is static show');
+                }
+            }
+            class Admin extends User {
+
+            }
+            console.dir(Admin)
+            Admin.show()
+        }
+        // function实现静态继承
+        {
+            function User() {}
+            User.show = function() {
+                console.log('this is static show');
+            }
+            function Admin() {}
+            Admin.__proto__ = User
+            console.dir(Admin)
+            Admin.show()
+        }
+
+        // class继承内置类
+        {
+            class MyArray extends Array {
+                constructor(...args) {
+                    super(...args)
+                }
+                min() {
+                    return this.sort((a, b) => a - b)[0]
+                }
+            }
+            const m = new MyArray(2, 2, 1, 3, 8)
+            console.log(m.min());
+        }
+        // function继承内置类
+        {
+            function MyArray(...args) {
+                args.forEach(a => this.push(a))
+            }
+            MyArray.prototype = Object.create(Array.prototype)
+            Object.defineProperty(MyArray, 'constructor', {
+                value: MyArray,
+                enumerable: false
+            })
+            MyArray.prototype.min = function() {
+                return this.sort((a, b) => a - b)[0]
+            }
+            const m = new MyArray(2, 2, 1, 3, 8)
+            console.log(m.min());
+        }
+
+
+        // super原理
+        {
+            const user = {
+                name: 'Irving',
+                show() {
+                    console.log(`My name is ${this.name}`);
+                }
+            }
+            const admin = {
+                __proto__: user,
+                name: 'Lebron',
+                show() {
+                    this.__proto__.show.call(this)
+                    console.log('this is admin show');
+                }
+            }
+            admin.show()
         }
     </script>
 </body>

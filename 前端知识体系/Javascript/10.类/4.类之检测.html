@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * instanceof
+         * isPrototypeOf()
+        */
+        function checkPrototype(obj, ctor) {
+            if (!obj.__proto__) return false
+            if (obj.__proto__ === ctor.prototype) return true
+            return checkPrototype(obj.__proto__, ctor)
+        }
+
+        {
+            class User {}
+            class Admin extends User {}
+
+            const admin = new Admin()
+            console.log(admin instanceof Admin);
+            console.log(admin instanceof User);
+            console.log(checkPrototype(admin, Admin));
+            console.log(checkPrototype(admin, User));
+            console.log(Admin.prototype.isPrototypeOf(admin));
+            console.log(User.prototype.isPrototypeOf(admin));
+        }
+
+        {
+            function User() {}
+            function Admin() {}
+            Admin.prototype = Object.create(User.prototype)
+            Object.defineProperty(Admin.prototype, 'constructor', {
+                value: Admin,
+                enumerable: false
+            })
+
+            const admin = new Admin()
+            console.log(admin instanceof Admin);
+            console.log(admin instanceof User);
+            console.log(checkPrototype(admin, Admin));
+            console.log(checkPrototype(admin, User));
+            console.log(Admin.prototype.isPrototypeOf(admin));
+            console.log(User.prototype.isPrototypeOf(admin));
+        }
+    </script>
+</body>
+</html>
