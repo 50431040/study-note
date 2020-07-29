@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        /*
+         * 可将模块单独定义到一个js文件中，使用export导出需要暴露的接口
+         * 使用 import {} from 导入模块的成员，需要将当前的script标签type属性设置为module
+         * 不使用别名的情况下，导出和导入的成员名称必须一致
+         * JS脚本从上往下执行，但type="module"的脚本会延迟解析，直到DOM加载完毕才解析
+         * 模块化脚本默认运行在严格模式下
+         * 模块化脚本具有独立的作用域，除了导出的成员，其他成员在外部均不可访问
+         * 模块预解析。模块在第一次导入时内部代码才会执行，之后导入都不会执行
+        */
+        import { name, show, age } from './2.js'
+        console.log(name);
+        console.log(age);
+        show()
+
+        import { name as lastName } from './2.js'
+        console.log(lastName);
+
+        var add = 'ChengDu'
+        console.log(add);
+    </script>
+</body>
+</html>
