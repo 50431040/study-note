@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点我加载其他文件</button>
+    <script>
+        /*
+         * 有时不是页面初始化时就加载，而是触发某事件时才加载，以提升性能
+         * 使用 import() 按需加载，返回 promise，加载成功后返回模块
+        */
+        document.getElementById('btn').addEventListener('click', function() {
+            import('./user.js').then(res => {
+                console.log(res.name);
+            })
+        })
+    </script>
+</body>
+</html>

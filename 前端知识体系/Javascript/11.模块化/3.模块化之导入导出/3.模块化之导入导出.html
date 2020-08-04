@@ -6,16 +6,45 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
+    <script type="module">
         /*
          * 使用import导入模块，export导出模块的成员
          * 具名导入，即指定导入的成员名称，该成员必须在模块中具名导出
-         * 可使用 import * as xx 来导出模块中的所有成员
+         * 可使用 import * as xx 来导出模块中的所有成员（不推荐）
          * 可对导入的成员起别名，解决命名冲突的问题
          * 当只有一个导出成员时，可使用 export default 默认到导出
          * 默认导入与具名导入可混合使用。默认导入也可批量导入，使用时需要添加.default
-         * 
+         * 从多个模块中导入时可能会出现同名成员的情况，先使用批量导入将全部模块集成为一个模块，再使用具名导入不同的模块
         */
+
+       // 具名导入
+       import { name, show } from './user.js'
+       console.log(name);
+       show()
+
+       // 批量导出
+       import * as user from './user.js'
+       console.log(user.name);
+       user.show()
+
+       // 别名
+       import { name as myName } from './user.js'
+       console.log(myName);
+
+       // 默认导入(混合具名导入)
+       import getAge, { age } from './data.js'
+       getAge()
+       console.log(age);
+
+       // 默认批量导入
+       import * as data from './data.js'
+       console.log(data);
+       data.default()
+       console.log(data.age);
+
+       // 避免同名
+       import { user as User, data as Data } from './merge.js'
+       console.log(User.name);
     </script>
 </body>
 </html>
