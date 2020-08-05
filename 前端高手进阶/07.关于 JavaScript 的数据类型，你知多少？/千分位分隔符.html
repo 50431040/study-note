@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 遍历
+        function sep(num) {
+            const arr = num.toString().split('')
+            const temp = []
+            for(let i = arr.length - 1, j = 1; i >= 0; i--, j++) {
+                temp.unshift(arr[i])
+                if (j % 3 === 0) {
+                    temp.unshift(',')
+                }
+            }
+            return temp.join('')
+        }
+        console.log(sep(14562348621));
+
+        // 正则
+        function sep2(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+        }
+        console.log(sep2(14562348621));
+    </script>
+</body>
+</html>
