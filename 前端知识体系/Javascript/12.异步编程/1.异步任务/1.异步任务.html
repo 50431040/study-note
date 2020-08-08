@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+         * js是单线程，同一时刻js只做一项任务
+         * 所谓异步任务，即js优先完成主线程的任务，而同时将其他任务追加到任务队列中，当主线程执行完毕后开始从任务队列中一次执行
+         * 定时器就是异步任务，等待主线程结束继续执行任务队列中的任务
+         * 脚本依赖加载也是异步任务，必须保证被加载的脚本优先加载，当前脚本才能继续执行
+         * 对于异步任务都存在任务嵌套执行的问题，因此引入 Promise
+        */
+        // 加载图片
+        {
+            const loadImage = (src, reslove, reject) => {
+                const img = new Image()
+                img.src = src
+                img.onload = () => reslove(img)
+                img.onerror = reject
+            }
+            loadImage('./adapter.jpg', (img) => {
+                console.log('图片加载成功');
+                img.style.width = '200px'
+                document.body.appendChild(img)
+            }, () => {
+                console.log('图片加载失败');
+            })
+        }
+        // 脚本依赖
+        {
+            const loadScript = (src, resolve, reject) => {
+                const script = document.createElement('script')
+                script.src = src
+                script.onload = () => resolve(script)
+                script.onerror = reject
+                document.head.appendChild(script)
+            }
+            loadScript('./a.js', () => {
+                loadScript('./b.js', () => {})
+            })
+        }
+        // promise
+        {
+            const loadScript = (src) => {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script')
+                    script.src = src
+                    script.onload = () => resolve(script)
+                    script.onerror = reject
+                    document.head.appendChild(script)
+                })
+            }
+            loadScript('./a.js').then(() => {
+                loadScript('./b.js')
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="executeTask1()">执行任务1</button>
+    <button onclick="executeTask2()">执行任务2</button>
+    <script>
+        /*
+         * 宏任务(macrotask)，即js调用栈中执行的代码，包含从任务队列中读取事件回调并放入调用栈，js为保持宏任务与DOM有序执行，在每一个宏任务执行结束后下一个宏任务执行前，对页面重新渲染
+         * 微任务(microtask)，即当前宏任务执行完成后，下一个宏任务执行前甚至页面重新渲染前执行的任务，响应速度更快，无需等待页面重新渲染。
+         * 宏任务和微任务都属于异步任务，而微任务伴随宏任务或同步任务执行过程中应运而生，而执行也是伴随宏任务执行完后立即执行对应的微任务。
+         * 宏任务包括：script(整块代码),setTimeout,setInterval,I/O,UI交互,DOM渲染
+         * 微任务包括：Promise.then,Promise.catch,Object.observe,MutationObserve,process.nextTick(Node)
+         * 优先执行主线程逻辑，然后执行微任务队列的任务，最后执行宏任务队列的任务。
+        */
+        function executeTask1() {
+            setTimeout(() => {
+                console.log('setTimeout');
+            }, 0)
+            new Promise(resolve => {
+                resolve('success')
+                console.log('promise')
+            }).then(res => console.log(res))
+            console.log('main');
+        }
+
+        function executeTask2() {
+            new Promise(resolve => {
+                setTimeout(() => {
+                    resolve('success')
+                    console.log('setTimeout');
+                })
+                console.log('promise');
+            }).then(res => console.log(res))
+            console.log('main');
+        }
+    </script>
+</body>
+</html>

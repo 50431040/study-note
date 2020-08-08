@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const a = {}
+        console.dir(a) // 对象没有prototype属性
+        console.log(a.__proto__ === Object.prototype);
+
+        function fn() {}
+        console.dir(fn) // 函数有 prototype和__proto__
+        console.log(fn.prototype.constructor === fn);
+        console.log(fn.__proto__ === Function.prototype);
+
+        const parent = {
+            code: 'p',
+            name: 'parent'
+        }
+        const child = {
+            __proto__: parent,
+            name: 'child'
+        }
+        console.log(parent.prototype); // undefined
+        console.log(child.name); // child
+        console.log(child.code); // p
+        console.log(child.hasOwnProperty('name')); // true
+        console.log(child.hasOwnProperty('code')); // false
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function myNew(Fn, ...args) {
+            const fn = Object.create(Fn.prototype)
+            // const obj = new Fn()
+            const obj = Fn.apply(fn, args)
+            return typeof obj === 'object' ? obj : Fn
+        }
+
+        function User(name, age) {
+            this.name = name
+            this.age = age
+            // return {
+            //     name: '123'
+            // }
+        }
+        const u1 = new User('abc', 12)
+        const u2 = myNew(User, 'def', 15)
+        console.log(u1);
+        console.log(u2);
+    </script>
+</body>
+</html>

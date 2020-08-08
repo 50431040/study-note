@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function A() {}
+        A.prototype.a = function() {
+            console.log('a');
+        }
+        function B() {}
+        B.prototype = new A()
+        B.prototype.b = function() {
+            console.log('b');
+        }
+        Object.defineProperty(B.prototype, 'constructor', {
+            value: B,
+            enumerable: false
+        })
+        console.dir(B);
+        
+        var c = new B()
+        console.dir(c)
+        c.b()
+        c.a()
+        console.log(c.hasOwnProperty('b'));
+        console.log(c.hasOwnProperty('a'));
+    </script>
+</body>
+</html>

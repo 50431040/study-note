@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        {
+            var o = {
+                fn() {
+                    console.log(this);
+                }
+            }
+            o.fn() // o
+
+            class A {
+                fn() {
+                    console.log(this);
+                }
+            }
+            const a = new A()
+            a.fn() // a
+
+            function fn() {
+                console.log(this);
+            }
+            fn() // window
+        }
+
+        {
+            function fn() {
+                console.log(this);
+            }
+            function fn2() {
+                fn()
+            }
+            fn2() // windows
+        }
+
+        {
+            function fn() {
+                console.log(this);
+            }
+            function fn2() {
+                fn()
+            }
+            const obj = { fn2 }
+            obj.fn2() // window
+        }
+
+        {
+            const fn = () => {
+                console.log(this);
+            }
+            function fn2() {
+                fn()
+            }
+            const obj = { fn2 }
+            obj.fn2() // window
+        }
+
+        {
+            const dx = {
+                arr: [1]
+            }
+            dx.arr.forEach(function() {
+                console.log(this); // window
+            })
+        }
+        
+        {
+            // class 内部默认采用的是严格模式
+            class B {
+                fn() {
+                    console.log(this);
+                }
+            }
+            const b = new B()
+            var fun = b.fn
+            fun() // undefined
+        }
+
+        {
+            const arrow = {
+                fn: () => {
+                    console.log(this);
+                }
+            }
+            arrow.fn() // window
+        }
+
+        {
+            const arrow = {
+                fn() {
+                    const a = () => console.log(this);
+                    a()
+                }
+            }
+            arrow.fn() // arrow
+        }
+
+        {
+            [0].forEach(function() {
+                console.log(this); // 值为0的Number对象
+            }, 0)
+        }
+
+        {
+            function getName() {
+                console.log(this.name);
+            }
+            const b = getName.bind({
+                name: 'bind'
+            })
+            b()
+            getName.call({
+                name: 'call'
+            })
+            getName.apply({
+                name: 'apply'
+            })
+        }
+    </script>
+</body>
+</html>
