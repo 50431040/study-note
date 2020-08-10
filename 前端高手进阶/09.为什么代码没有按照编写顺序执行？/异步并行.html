@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const promise1 = new Promise(resolve => {
+            setTimeout(() => resolve(1), 1000)
+        })
+        const promise2 = new Promise((resolve, reject) => {
+            setTimeout(() => reject(1), 1000)
+        })
+        const promise3 = new Promise((resolve, reject) => {
+            setTimeout(() => reject(3), 2000)
+        })
+        const promise4 = new Promise(resolve => {
+            setTimeout(() => resolve(4), 3000)
+        })
+        const fn = async () => {
+            // const result = await Promise.all([promise1, promise3, promise2, promise4])
+            // console.log(result);
+
+            const result = await Promise.all([promise1, promise4])
+            console.log(result);
+
+            // const result = await Promise.allSettled([promise1, promise2, promise3, promise4])
+            // console.log(result);
+
+            // const result = await Promise.race([promise2, promise3, promise4])
+            // console.log(result);
+
+            // const result = await Promise.race([promise1, promise3, promise4])
+            // console.log(result);
+        }
+        fn()
+    </script>
+</body>
+</html>

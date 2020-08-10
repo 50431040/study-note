@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        {
+            function syncAdd(a, b) {
+                console.log(a + b);
+            }
+            function asyncAdd(a, b, cb) {
+                setTimeout(function() {
+                    cb(a + b)
+                }, 1000)
+            }
+            syncAdd(1, 2)
+            asyncAdd(1, 2, console.log)
+        }
+    </script>
+</body>
+</html>
