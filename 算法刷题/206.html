@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 递归
+        function reverseList(head) {
+            const reverse = (pre, cur) => {
+                if (!cur) return pre
+                const next = cur.next
+                cur.next = pre
+                return reverse(cur, next)
+            }
+            return reverse(null, head)
+        }
+        // 迭代
+        function reverseList(head) {
+            if (!head) return
+            let cur = head, pre = null
+            while(cur) {
+                const next = head.next
+                cur.next = pre
+                pre = cur
+                cur = next
+            }
+            return pre
+        }
+    </script>
+</body>
+</html>
