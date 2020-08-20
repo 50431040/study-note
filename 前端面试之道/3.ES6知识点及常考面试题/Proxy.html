@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const onWatch = (obj, setbind, getLogger) => {
+            const handler = {
+                get(target, property, receiver) {
+                    getLogger(target[property], property)
+                },
+                set(target, property, value, receiver) {
+                    setbind(value, property)
+                    return Reflect.set(target, property, value)
+                }
+            }
+            return new Proxy(obj, handler)
+        }
+
+        const obj = {
+            a: 1
+        }
+        const p = onWatch(obj, (v, property) => {
+            console.log(`属性${property}改变为${v}`);
+        }, (target, property) => {
+            console.log(`获取属性${property}值，为${target}`);
+        })
+
+        console.log(p);
+        p.a
+        p.a = 2
+        p.a
+    </script>
+</body>
+</html>

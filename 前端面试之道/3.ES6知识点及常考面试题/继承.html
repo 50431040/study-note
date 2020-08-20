@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        {
+            // 组合继承
+            function Parent(name) {
+                this.name = name
+            }
+            Parent.prototype.say = function() {
+                console.log(this.name);
+            }
+
+            function Child(name) {
+                Parent.call(this, name)
+            }
+            // new Parent() =>  实例的 __proto__  指向 Parent.prototype
+            Child.prototype = new Parent()
+
+            // new Child => __proto__ 指向 Child.prototype => __proto__ 指向 实例 => 实例的 __proto__ 指向 Parent.prototype
+            const child = new Child('child')
+            console.dir(Child)
+            console.dir(child)
+            child.say()
+        }
+
+        {
+            // 寄生组合继承
+            function Parent(name) {
+                this.name = name
+            }
+            Parent.prototype.say = function() {
+                console.log(this.name);
+            }
+
+            function Child(name) {
+                Parent.call(this, name)
+            }
+
+            Child.prototype = Object.create(Parent.prototype, {
+                constructor: {
+                    value: Child,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                }
+            })
+
+            const child = new Child('child')
+            console.dir(Child)
+            console.dir(child)
+            child.say()
+        }
+
+        {
+            // class 继承
+            class Parent {
+                constructor(name) {
+                    this.name = name
+                }
+                say() {
+                    console.log(this.name);
+                }
+            }
+
+            class Child extends Parent {
+                constructor(name) {
+                    super(name)
+                }
+            }
+
+            const child = new Child('class 继承')
+            child.say()
+        }
+    </script>
+</body>
+</html>
