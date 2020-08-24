@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        {
+            // 解法一
+            var coinChange = function (coins, amount, obj) {
+                if (amount < 0) {
+                    return -1
+                }
+                if (amount === 0) {
+                    return 0
+                }
+                var res = Number.MAX_VALUE
+                var obj = obj || {}
+                for(let i = 0; i < coins.length; i++) {
+                    if (obj[amount] !== undefined) {
+                        return obj[amount]
+                    }
+                    var mount = coinChange(coins, amount - coins[i], obj)
+                    if (mount === -1) {
+                        continue
+                    }
+                    res = Math.min(res, mount + 1)
+                }
+                obj[amount] = res === Number.MAX_VALUE ? -1 : res
+                return obj[amount]
+            };
+            console.log(coinChange([2], 3));
+        }
+
+        {
+            // 解法二
+            var coinChange = function (coins, amount) {
+                if (amount === 0) return 0
+                var arr = [0]
+                for(let i = 1; i <= amount; i++) {
+                    arr[i] = Number.MAX_SAFE_INTEGER
+                    for (let j = 0; j < coins.length; j++) {
+                        if (coins[j] > i) continue
+                        arr[i] = Math.min(arr[i], arr[i - coins[j]] + 1)
+                    }
+                }
+                return arr[amount] === Number.MAX_SAFE_INTEGER ? -1 : arr[amount]
+            }
+
+            console.log(coinChange([2], 3));
+        }
+    </script>
+</body>
+
+</html>

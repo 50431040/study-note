@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+         * 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+         不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+        */
+        var removeDuplicates = function (nums) {
+            let count = 0
+            nums.forEach((num, index) => {
+                // 从第二个数开始比较
+                if (index > 0) {
+                    if (num !== nums[count]) {
+                        // 不等于前面一个不重复的数时
+                        nums[++count] = num
+                    }
+                }
+            })
+            return count + 1
+        };
+        console.log(removeDuplicates([0,0,1,1,1,2,2,3,3,4]));
+    </script>
+</body>
+
+</html>

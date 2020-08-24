@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。
+
+        // 递归解法 从高到低
+        const obj = {
+            0: 0,
+            1: 1
+        }
+        var fib = function (N) {
+            if (obj[N] !== undefined) {
+                return obj[N]
+            }
+            obj[N] = fib(N - 1) + fib(N - 2)
+            return obj[N]
+        };
+        console.log(fib(4));
+
+        {
+            // 从低到高
+            var fib = function(N) {
+                if (N === 0) return 0
+                let pre = 1, cur = 1
+                for(let i = 2; i < N; i++) {
+                    const sum = pre + cur
+                    pre = cur
+                    cur = sum
+                }
+                return cur
+            }
+        }
+    </script>
+</body>
+
+</html>
