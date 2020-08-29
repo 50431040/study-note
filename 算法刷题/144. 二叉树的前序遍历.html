@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var preorderTraversal = function (root) {
+            const arr = []
+            const order = (root) => {
+                if (root === null) return
+                arr.push(root.val)
+                root.left && order(root.left)
+                root.right && order(root.right)
+            }
+            order(root)
+            return arr
+        };
+
+        {
+            // 栈
+            var preorderTraversal = function(root) {
+                const result = []
+                const stack = []
+                if (root) stack.push(root)
+                while(stack.length) {
+                    const cur = stack.pop()
+                    result.push(cur.val)
+                    if (cur.right !== null) {
+                        stack.push(cur.right)
+                    }
+                    if (cur.left) {
+                        stack.push(cur.left)
+                    }
+                }
+                return result
+            }
+        }
+    </script>
+</body>
+
+</html>

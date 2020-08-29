@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+         * 给定一个 N 叉树，返回其节点值的前序遍历。
+         */
+        var preorder = function (root) {
+            const arr = []
+            const order = (root) => {
+                if (!root) return;
+                arr.push(root.val)
+                root.children && root.children.forEach(order)
+            }
+            order(root)
+            return arr
+        };
+    </script>
+</body>
+
+</html>
