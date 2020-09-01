@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var isValidBST = function (root) {
+            function recurse(node, lower, upper) {
+                if (node === null) return true
+                if (node.val >= upper || node.val <= lower) return false
+                return recurse(node.left, lower, node.val) && recurse(node.right, node.val, upper)
+            }
+            return recurse(root, -Infinity, Infinity)
+        };
+
+        {
+            // 中序遍历
+            var isValidBST = function (root) {
+                const stack = []
+                let last = -Infinity
+                while(stack.length > 0 || root !== null) {
+                    while(root !== null) {
+                        stack.push(root)
+                        root = root.left
+                    }
+                    root = stack.pop()
+                    if (root.val <= last) return false
+                    last = root.val
+                    root = root.right
+                }
+                return true
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        Function.prototype.myCall = function(context) {
+            console.log(this, typeof this);
+            // 不能使用 new
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+            context = context || window
+            context.fn = this
+
+            const args = [...arguments].slice(1)
+            const result = context.fn(...args)
+            delete context.fn
+            return result
+        }
+
+        const obj = {
+            name: 'jlq'
+        }
+        function sayName() {
+            console.log(this.name);
+        }
+        sayName.myCall(obj)
+
+        // function fn() {}
+        // new fn.myCall()
+    </script>
+</body>
+</html>

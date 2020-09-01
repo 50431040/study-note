@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function myInstanceof(left, right) {
+            const prototype = right.prototype
+            let proto = left.__proto__
+            while (proto) {
+                if (proto === prototype) {
+                    return true
+                }
+                proto = proto.__proto__
+            }
+            return false
+        }
+
+        function fn() {}
+        console.log(myInstanceof({}, Object));
+        console.log(myInstanceof(fn, Object));
+        console.log(myInstanceof({}, Number));
+        console.log(myInstanceof({}, Boolean));
+    </script>
+</body>
+
+</html>

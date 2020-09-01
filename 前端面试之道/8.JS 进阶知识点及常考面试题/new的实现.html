@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function create(Con, ...rest) {
+            const obj = Object.create(Con.prototype)
+
+            const result = Con.apply(obj, args)
+
+            return result instanceof Object ? result : obj
+        }
+    </script>
+</body>
+</html>

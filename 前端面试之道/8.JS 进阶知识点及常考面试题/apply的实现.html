@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        Function.prototype.myApply = function(context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+
+            context = context || window
+            context.fn = this
+
+            const args = arguments[1] || []
+            const result = context.fn(...args)
+
+            delete context.fn
+            return result
+        }
+
+        const obj = {
+            name: 'jlq'
+        }
+        function sayName(age, address) {
+            console.log(this.name, age, address);
+        }
+        sayName.myApply(obj, [12, '成都'])
+    </script>
+</body>
+</html>
