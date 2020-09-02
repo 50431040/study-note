@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="content">123</div>
+    <script>
+        document.body.addEventListener('click', function() {
+            console.log('body 捕获');
+        }, true)
+        document.body.addEventListener('click', function() {
+            console.log('body 冒泡');
+        }, {
+            capture: false,
+            once: true
+        })
+
+        document.querySelector('#content').addEventListener('click', function(e) {
+            console.log('content 捕获');
+            e.stopImmediatePropagation()
+            // e.stopPropagation()
+        }, true)
+
+        document.querySelector('#content').addEventListener('click', function(e) {
+            console.log('content 捕获2');
+        }, true)
+    </script>
+</body>
+</html>

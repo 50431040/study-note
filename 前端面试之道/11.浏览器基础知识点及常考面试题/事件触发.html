@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="content">
+        <div id="row">123</div>
+    </div>
+    <script>
+        // 第三个参数为 true，代表在捕获阶段执行，默认 false，代表在冒泡阶段执行。
+
+        document.body.addEventListener('click', function() {
+            console.log('body 冒泡');
+        }, false)
+
+        document.querySelector('#row').addEventListener('click', function() {
+            console.log('row 冒泡');
+        }, false)
+
+        document.querySelector('#row').addEventListener('click', function() {
+            console.log('row 捕获');
+        }, true)
+
+        document.querySelector('#content').addEventListener('click', function() {
+            console.log('content 冒泡');
+        }, false)
+
+        document.body.addEventListener('click', function() {
+            console.log('body 捕获');
+        }, true)
+
+        document.querySelector('#content').addEventListener('click', function() {
+            console.log('content 捕获');
+        })
+
+        // body 捕获 row 冒泡 row 捕获 content 冒泡 content 捕获 body 冒泡
+    </script>
+</body>
+</html>
