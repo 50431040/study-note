@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function findTwoOddNumber(arr) {
+      // 假设两个奇数个数的值为a和b，a和b必定不相等 => eor必然有一个位置上为1 => a和b在这个位置上肯定一个是0，另一个是1
+
+      // eor = a^b
+      let eor = 0
+
+      arr.forEach(item => {
+        eor ^= item
+      })
+
+      // 提取eor最右侧的1，在这个位置上a和b一个为1，一个为0 => 用&结果是否为0进行分组
+      const rightOne = eor & (~eor + 1)
+
+      let eor2 = 0
+      arr.forEach(item => {
+        // 不能改为1，因为&的结果除了0可能为其他的任意数
+        if ((item & rightOne) === 0) {
+          eor2 ^= item
+        }
+      })
+
+      return [eor2, eor2^eor]
+    }
+
+    console.log(findTwoOddNumber([1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7, 7, 8, 8]))
+  </script>
+</body>
+</html>

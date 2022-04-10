@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function isExistMinNumber(arr, num) {
+      const mid = arr.length >> 1
+
+      if (arr.length === 1 && num > arr[0]) {
+        return -1
+      }
+
+      let min = -1
+
+      if (arr[mid] >= num) {
+        min = mid
+        const has = isExistMinNumber(arr.slice(0, mid), num)
+        if (has !== -1) {
+          min = has
+        }
+      } else {
+        const has = isExistMinNumber(arr.slice(mid), num)
+        if (has !== -1) {
+          min = has + mid
+        }
+      }
+
+      return min
+    }
+
+    
+    console.log(isExistMinNumber([1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 8, 8], 3))
+    console.log(isExistMinNumber([1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 8, 8], 4))
+    console.log(isExistMinNumber([1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 8, 8], 5))
+    console.log(isExistMinNumber([1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 8, 8], 6))
+    console.log(isExistMinNumber([1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 8, 8], 7))
+    console.log(isExistMinNumber([1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 8, 8], 8))
+  </script>
+</body>
+
+</html>
