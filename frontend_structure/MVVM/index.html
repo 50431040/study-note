@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="person.name">
+        <div>姓名：{{person.name}}</div>
+        <div>年龄：{{person.age}}</div>
+        {{getInfo}}
+        <ul>
+            <li>1</li>
+        </ul>
+        <button v-on:click="change">更新</button>
+        <div v-html="message"></div>
+    </div>
+
+    <!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
+    <script src="./MVVM.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                person: {
+                    name: "jlq",
+                    age: 25
+                },
+                message: "<h3>这是v-html</h3>"
+            },
+            computed: {
+                getInfo() {
+                    return this.person.name + "是一名前端"
+                }
+            },
+            methods: {
+                change() {
+                    this.person.age = 18
+                }
+            }
+        })
+    </script>
+</body>
+</html>
