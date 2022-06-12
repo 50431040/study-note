@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <div>{{info}}</div>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            // 会覆盖app节点
+            // template: "<h1>hello world</h1>",
+            // 数据都代理给了vm
+            data: {
+                msg: "Hello",
+                info: {
+                    name: "jlq",
+                    arr: [1, 2, 3, 4]
+                }
+            }
+        })
+
+        // 数据变化后更新视图是异步执行的
+        vm.info.arr = [3, 3, 3]
+
+        console.log(vm.info.arr)
+
+        vm.$nextTick(() => {
+            // vue实例上的属性和方法
+            console.log(vm.$el.innerHTML)
+            console.log(vm.$options)
+        })
+        
+        // 连续多次更新只会触发一次
+        vm.$watch("info.name", function(newValue, oldValue) {
+            console.log('watch', newValue, oldValue)
+        })
+
+        vm.info.name = "jlq1"
+        vm.info.name = "jlq2"
+
+        // vm.msg = "world"
+        // 不会触发更新（注：在这句的前后触发更新的话会添加上age属性，需注释掉其他代码）
+        // vm.info.age = 18
+        // vm.$set(vm.info, "address", "CDC")
+
+        vm.info.arr.push(5)
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-once 内部会进行缓存，以后使用的都是缓存的内容 -->
+        <div v-once>{{msg}}</div>
+        <!-- v-html innerHTML 需要预防XSS攻击 不能将用户输入的内容展现出来 -->
+        <div v-html="content"></div>
+        <input type="text" v-model="content">
+
+        <!-- v-if 控制的DOM元素是否存在 -->
+        <div v-if="flag">123</div>
+        <div v-else>321</div>
+
+        <!-- v-show 控制元素的display，不支持template -->
+        <div v-show="flag">123</div>
+        <template v-show="flag">123</template>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello",
+                content: "<h1>hello</h1>",
+                flag: false
+            }
+        })
+    </script>
+</body>
+</html>

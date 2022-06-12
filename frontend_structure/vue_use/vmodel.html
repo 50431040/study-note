@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" :value="msg" @input="change" />
+        <!-- v-model 是 :value + @input 的语法糖 -->
+        <input type="text" v-model="msg" />
+        {{msg}}
+
+        <div>
+            <select v-model="menuValue">
+                <option value="全部" disabled>全部</option>
+                <option v-for="(item, index) in menus" :key="`menu_${index}`" :value="item">
+                    {{item}}
+                </option>
+            </select>
+            <br/>
+            {{menuValue}}
+        </div>
+
+        <div>
+            男：<input type="radio" v-model="radioValue" value="男">
+            女：<input type="radio" v-model="radioValue" value="女">
+            <br/>
+            {{radioValue}}
+        </div>
+
+        <div>
+            游泳：<input type="checkbox" v-model="checkValue" value="游泳">
+            画画：<input type="checkbox" v-model="checkValue" value="画画">
+            打篮球：<input type="checkbox" v-model="checkValue" value="打篮球">
+            <br/>
+            {{checkValue}}
+        </div>
+
+       <div>
+            <!-- 修饰符：.number .trim -->
+            <input type="text" v-model.number.trim="val"> {{ typeof val }} {{val}}
+       </div>
+
+        <div>
+            <!-- 键盘修饰符、鼠标修饰符、键盘码 -->
+            <input type="text" @keyup.ctrl.enter="handkeKeyup">
+            <input type="text" @keyup.f1="handkeKeyup">
+        </div>
+
+        <!-- 属性绑定 v-bind: -->
+        <div class="abc" :class="{b: true}"></div>
+        <!-- 绑定样式类：对象或数组 -->
+        <div class="dfg" :class="['c', 'l']"></div>
+
+        <!-- 行内样式：对象或数组 -->
+        <div style="color: red" :style="{ background: 'blue' }">
+        zzz</div>
+        <div style="color: red" :style="[{ background: 'black', color: 'green' }]">
+            zzz</div>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 配置键盘别名
+        Vue.config.keyCodes = {
+            'f1': 112
+        }
+
+        const vm = new Vue({
+            data: {
+                msg: "hello",
+                menuValue: "全部",
+                menus: ["菜单1", "菜单2", "菜单3"],
+                radioValue: "男",
+                checkValue: [],
+                val: 0
+            },
+            methods: {
+              change(e) {
+                  this.msg = e.target.value
+              },
+              handkeKeyup() {
+                  console.log('enter')
+              }
+            },
+        })
+
+        vm.$mount("#app")
+    </script>
+</body>
+</html>
