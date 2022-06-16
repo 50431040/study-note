@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+         * @lc app=leetcode.cn id=606 lang=javascript
+         *
+         * [606] 根据二叉树创建字符串
+         */
+
+        // @lc code=start
+        /**
+         * Definition for a binary tree node.
+         * function TreeNode(val, left, right) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.left = (left===undefined ? null : left)
+         *     this.right = (right===undefined ? null : right)
+         * }
+         */
+        /**
+         * @param {TreeNode} root
+         * @return {string}
+         */
+        var tree2str = function (root) {
+
+            if (!root) {
+                return ""
+            }
+
+            var str = root.val.toString()
+
+            if (root.left) {
+                str += "(" + tree2str(root.left) + ")"
+            }
+
+            if (root.right) {
+                if (!root.left) {
+                    str += "()"
+                }
+                str += "(" + tree2str(root.right) + ")"
+            }
+
+            return str
+        };
+        // @lc code=end
+    </script>
+</body>
+
+</html>
