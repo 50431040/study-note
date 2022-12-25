@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @property --colorPrimary {
+      syntax: "<color>";
+      initial-value: red;
+      inherits: false;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background-color: var(--colorPrimary);
+      padding: var(--custom-padding);
+    }
+  </style>
+</head>
+<body>
+  <div class="card"></div>
+
+  <script>
+    if ("paintWorklet" in CSS && "registerProperty" in CSS) {
+      CSS.registerProperty({
+        name: "--custom-padding",
+        syntax: "<length>",
+        initialValue: "20px",
+        inherits: false
+      })
+
+      CSS.registerProperty({
+        name: "--custom-width",
+        syntax: "<percentage>",
+        initialValue: "50%",
+        inherits: false
+      })
+    } else {
+      console.log("不支持")
+    }
+  </script>
+</body>
+</html>

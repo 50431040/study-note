@@ -1,0 +1,19 @@
+.test {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+body {
+  margin: 0;
+}
+
+.box {
+  width: 375rpx;
+  height: 375rpx;
+  font-size: 35rpx;
+  background-color: red;
+  font-weight: bold;
+  color: #FFF;
+}

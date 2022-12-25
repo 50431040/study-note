@@ -1,0 +1,18 @@
+{
+  "name": "j-nrm",
+  "version": "1.0.2",
+  "description": "a npm registry tool",
+  "main": "index.js",
+  "bin": {
+    "j-nrm": "bin/index.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Stahsf",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
