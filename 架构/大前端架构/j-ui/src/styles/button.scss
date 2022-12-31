@@ -1,0 +1,101 @@
+@import "./base.scss";
+
+.j-button {
+  border-radius: $borderRadius;
+  padding: $defaultPaddingTop $defaultPaddingLeft;
+  border: 1px solid;
+}
+
+.j-button-large {
+  padding: $largePaddingTop $largePaddingLeft;
+}
+
+.j-button-small {
+  padding: $smallPaddingTop $smallPaddingLeft;
+}
+
+.j-button--default {
+  background-color: $defaultColor;
+  padding: $defaultPaddingTop $defaultPaddingLeft;
+  border-color: $defaultTextColor;
+}
+
+.j-button--default:hover {
+  background-color: $primaryHoverColor;
+  color: $primaryColor;
+  border-color: $primaryHoverColor;
+}
+
+.j-button--default:active {
+  border-color: $primaryActiveColor;
+}
+
+.j-button--primary {
+  background-color: $primaryColor;
+  color: $primaryTextColor;
+  border-color: $primaryColor;
+}
+
+.j-button--primary:hover {
+  background-color: $primaryHoverColor;
+}
+
+.j-button--primaryL:active {
+  background-color: $primaryActiveColor;
+}
+
+.j-button--warning {
+  background-color: $warningColor;
+  color: $warningTextColor;
+  border-color: $warningColor;
+}
+
+.j-button--warning:hover {
+  background-color: $warningHoverColor;
+}
+
+.j-button--warning:active {
+  background-color: $warningActiveColor;
+}
+
+.j-button--danger {
+  background-color: $dangerColor;
+  color: $dangerTextColor;
+  border-color: $dangerColor;
+}
+
+.j-button--danger:hover {
+  background-color: $dangerHoverColor;
+}
+
+.j-button--danger:active {
+  background-color: $dangerActiveColor;
+}
+
+.j-button--success {
+  background-color: $successColor;
+  color: $successTextColor;
+  border-color: $successColor;
+}
+
+.j-button--success:hover {
+  background-color: $successHoverColor;
+}
+
+.j-button--success:active {
+  background-color: $successActiveColor;
+}
+
+.j-button--info {
+  background-color: $infoColor;
+  color: $infoTextColor;
+  border-color: $infoColor;
+}
+
+.j-button--info:hover {
+  background-color: $infoHoverColor;
+}
+
+.j-button--info:active {
+  background-color: $infoActiveColor;
+}
