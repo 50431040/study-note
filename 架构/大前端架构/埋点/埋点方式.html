@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // img标签
+    const img = document.createElement("img")
+    img.src = "http://www.baidu.com"
+
+    // img对象
+    const img2 = new Image()
+    img.src = "http://www.baidu.com"
+
+    // script标签
+    var script = document.createElement("script");
+    script.src = "http://www.baidu.com";
+    (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(script);
+  </script>
+</body>
+
+</html>
