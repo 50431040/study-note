@@ -13,6 +13,6 @@
 - 前端面试之道
 
 
-[个人博客](https://slower.top/blog)
+[个人博客](https://slower.top)
 
 （如有侵权请联系qq 50431040，定及时整改。）
